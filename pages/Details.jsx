@@ -4,8 +4,6 @@ import { SettingsContext } from "../context/SettingsContext";
 import { GlobalStyle } from "../styles/global/GlobalStyle";
 import { DetailStyle } from "../styles/pages/DetailStyle";
 import { useClothes } from "../data/apiData";
-
-// Import av nya delkomponenter
 import DetailCard from "../components/details/DetailCard";
 import DetailTags from "../components/details/DetailTags";
 import DetailNotes from "../components/details/DetailNotes";
