@@ -5,11 +5,6 @@ import { SettingsContext } from "../context/SettingsContext"; // Kontext för lj
 import { GlobalStyle } from "../styles/global/GlobalStyle";
 
 // EditClothesForm – Komponent som visar ett formulär för att redigera ett plagg
-// Använder en modal för att visa formuläret
-// Tar emot ett plagg-objekt och en funktion för att stänga modalen
-// Innehåller textfält för namn, kategori, färg, skick och anteckningar
-// Samt knappar för att spara ändringar eller avbryta
-
 export default function EditClothesForm({ item, onClose }) {
   const { updateItem, refetch } = useClothes(); // Funktioner för att uppdatera och hämta kläder
   const { theme } = useContext(SettingsContext); // Hämta aktuellt tema

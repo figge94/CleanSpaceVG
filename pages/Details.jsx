@@ -1,39 +1,30 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Modal,
-  Alert
-} from "react-native";
-import { MaterialIcons, EvilIcons } from "@expo/vector-icons";
-import { useContext, useEffect, useState } from "react";
-import { SettingsContext } from "../context/SettingsContext"; // Hanterar ljust/mörkt tema
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, ScrollView, BackHandler, Alert } from "react-native";
+import { SettingsContext } from "../context/SettingsContext";
 import { GlobalStyle } from "../styles/global/GlobalStyle";
-import { BackHandler } from "react-native"; // Hanterar hårdvarubakknapp
-import ButtonStyle from "../styles/ButtonStyle";
-import { TagStyle } from "../styles/TagStyle";
 import { DetailStyle } from "../styles/pages/DetailStyle";
-import { useClothes } from "../data/apiData"; // Hämtar data från api
-import EditClothesForm from "../components/EditClothesForm"; // Komponent med redigeringsformulär
-import Button from "../components/Button";
+import { useClothes } from "../data/apiData";
 
-// Sida som visar detaljer om ett plagg, med möjlighet att redigera eller ta bort
+// Import av nya delkomponenter
+import DetailCard from "../components/details/DetailCard";
+import DetailTags from "../components/details/DetailTags";
+import DetailNotes from "../components/details/DetailNotes";
+import DetailFooter from "../components/details/DetailFooter";
+import EditClothesModal from "../components/details/EditClothesModal";
+
+// ✅ Detaljsida för ett plagg
 export default function DetailsScreen({ route, navigation }) {
   const { theme } = useContext(SettingsContext);
-  const { deleteItem } = useClothes(); // Hook för API-borttagning
+  const { deleteItem } = useClothes();
   const item = route.params?.item;
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const [modalVisible, setModalVisible] = useState(false); // Visar/döljer redigeringsmodal
-
-  // Gå tillbaka vid tryck på Androids bakknapp
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
       return true;
     };
 
-    // Bekräftar och raderar ett plagg från API
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
@@ -41,7 +32,7 @@ export default function DetailsScreen({ route, navigation }) {
     return () => backHandler.remove();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     Alert.alert(
       "Ta bort plagg",
       "Är du säker på att du vill ta bort detta plagg?",
@@ -51,11 +42,11 @@ export default function DetailsScreen({ route, navigation }) {
           text: "Ta bort",
           onPress: async () => {
             try {
-              await deleteItem(item._id); // Raderar från backend
-              navigation.goBack(); // Navigerar tillbaka
-            } catch (error) {
-              console.error("Fel vid borttagning:", error);
+              await deleteItem(item._id);
+              navigation.goBack();
+            } catch (err) {
               Alert.alert("Fel!", "Kunde inte ta bort plagget.");
+              console.error(err);
             }
           },
           style: "destructive"
@@ -63,6 +54,17 @@ export default function DetailsScreen({ route, navigation }) {
       ]
     );
   };
+
+  if (!item) {
+    return (
+      <View
+        style={[GlobalStyle.container, { backgroundColor: theme.background }]}>
+        <Text style={[GlobalStyle.errorText, { color: theme.text }]}>
+          Ingen information tillgänglig
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>
@@ -73,148 +75,24 @@ export default function DetailsScreen({ route, navigation }) {
           </Text>
         </View>
 
-        {/* Visar taggar om de finns */}
-        {item.tags && item.tags.length > 0 && (
-          <View style={TagStyle.tagContainer}>
-            {item.tags.map((tag, index) => (
-              <View
-                key={index}
-                style={[
-                  TagStyle.tag,
-                  { backgroundColor: theme.tagBackground }
-                ]}>
-                <Text style={[TagStyle.tagText, { color: theme.buttonText }]}>
-                  {tag}
-                </Text>
-              </View>
-            ))}
-          </View>
-        )}
+        <DetailTags tags={item.tags} theme={theme} />
+        <DetailCard item={item} theme={theme} />
+        <DetailNotes notes={item.notes} theme={theme} />
 
-        <View
-          style={[
-            DetailStyle.detailsCard,
-            { backgroundColor: theme.cardBackground }
-          ]}>
-          <Text style={[DetailStyle.sectionTitle, { color: theme.text }]}>
-            Kategori:
-          </Text>
-          <Text style={[DetailStyle.content, { color: theme.text }]}>
-            {item.category?.main} / {item.category?.sub}
-          </Text>
-          <Text style={[DetailStyle.sectionTitle, { color: theme.text }]}>
-            Skick:
-          </Text>
-          <Text style={[DetailStyle.content, { color: theme.text }]}>
-            {item.condition}
-          </Text>
-          <Text style={[DetailStyle.sectionTitle, { color: theme.text }]}>
-            Senast använd:
-          </Text>
-          <Text style={[DetailStyle.content, { color: theme.text }]}>
-            {item.lastUsed
-              ? new Date(item.lastUsed).toLocaleDateString("sv-SE")
-              : "Okänt"}
-          </Text>
-        </View>
-
-        {item.notes && (
-          <View
-            style={[
-              DetailStyle.noteContainer,
-              { backgroundColor: theme.cardBackground }
-            ]}>
-            <Text style={[DetailStyle.sectionTitle, { color: theme.text }]}>
-              Noteringar:
-            </Text>
-
-            <View
-              style={[
-                {
-                  backgroundColor:
-                    theme.background === "#121212" ? "#1A1A1A" : "#f5f5f5",
-                  borderColor: theme.borderColor
-                }
-              ]}>
-              <Text style={[DetailStyle.notes, { color: theme.text }]}>
-                {item.notes}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        <View style={DetailStyle.centeredContainer}>
-          <Text style={[DetailStyle.sectionTitle, { color: theme.text }]}>
-            Tillagd:
-          </Text>
-          <Text style={[{ color: theme.text }]}>
-            {new Date(item.createdAt).toLocaleDateString("sv-SE")}
-          </Text>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={[
-            ButtonStyle.backButton,
-            { backgroundColor: theme.buttonBackground }
-          ]}>
-          <MaterialIcons name="arrow-back" size={24} color="white" />
-          <Text style={ButtonStyle.backButton}>Gå tillbaka</Text>
-        </TouchableOpacity>
-
-        {/* 🔹 Redigera-knapp */}
-        <Button
-          title="Redigera"
-          onPress={() => setModalVisible(true)}
+        <DetailFooter
+          item={item}
           theme={theme}
-          icon={
-            <MaterialIcons name="edit" size={20} color={theme.buttonText} />
-          }
+          onGoBack={() => navigation.goBack()}
+          onEdit={() => setModalVisible(true)}
+          onDelete={handleDelete}
         />
 
-        <Button
-          title="Ta bort"
-          onPress={handleDelete} // 👈 Skicka INTE item._id här
-          theme={{
-            ...theme,
-            buttonBackground: "#C62828",
-            buttonText: "#fff"
-          }}
-          icon={<MaterialIcons name="delete" size={20} color="#fff" />}
-        />
-
-        {/* 🔹 Modal för att redigera plagg */}
-        <Modal
-          animationType="slide"
-          transparent={true}
+        <EditClothesModal
           visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "rgba(0,0,0,0.5)",
-              justifyContent: "center",
-              alignItems: "center"
-            }}>
-            <View
-              style={{
-                width: "90%",
-                backgroundColor: theme.cardBackground,
-                padding: 20,
-                borderRadius: 10
-              }}>
-              <Text style={[GlobalStyle.title, { color: theme.text }]}>
-                Redigera plagg
-              </Text>
-
-              {/* 🆕 Formulär för att redigera */}
-              <EditClothesForm
-                item={item}
-                onClose={() => setModalVisible(false)}
-              />
-            </View>
-          </View>
-        </Modal>
+          onClose={() => setModalVisible(false)}
+          item={item}
+          theme={theme}
+        />
       </ScrollView>
     </View>
   );
