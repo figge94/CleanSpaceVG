@@ -9,10 +9,10 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
-import { useClothes } from "../data/apiData"; // Egen hook för att kommunicera med API:t
-import { SettingsContext } from "../context/SettingsContext"; // Hanterar färgtema
-import { GlobalStyle } from "../styles/global/GlobalStyle";
-import Button from "../components/Button"; // Återanvändbar knappkomponent
+import { useClothes } from "../../data/apiData"; // Egen hook för att kommunicera med API:t
+import { SettingsContext } from "../../context/SettingsContext"; // Hanterar färgtema
+import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import Button from "../Button"; // Återanvändbar knappkomponent
 import DateTimePicker from "@react-native-community/datetimepicker"; // För att välja datum
 import { MaterialIcons } from "@expo/vector-icons";
 

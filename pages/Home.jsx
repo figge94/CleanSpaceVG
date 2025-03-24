@@ -94,20 +94,6 @@ export default function HomeScreen({ navigation }) {
               }}
               theme={theme}
             />
-
-            {/* Navigering till QR-/streckkodsskanner */}
-            <Button
-              title="Skanna streckkod"
-              onPress={() => navigation.navigate("BarcodeScanner")}
-              icon={
-                <MaterialCommunityIcons
-                  name="chart-box"
-                  size={26}
-                  color={theme.buttonText}
-                />
-              }
-              theme={theme}
-            />
           </View>
         </View>
       </ScrollView>

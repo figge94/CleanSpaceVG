@@ -17,37 +17,14 @@ import { DetailStyle } from "../styles/pages/DetailStyle";
 import { useClothes } from "../data/apiData"; // Hämtar data från api
 import EditClothesForm from "../components/EditClothesForm"; // Komponent med redigeringsformulär
 import Button from "../components/Button";
-import QRCode from "react-native-qrcode-svg"; // För att visa QR-kod
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Sida som visar detaljer om ett plagg, med möjlighet att redigera, ta bort eller skapa QR-kod
+// Sida som visar detaljer om ett plagg, med möjlighet att redigera eller ta bort
 export default function DetailsScreen({ route, navigation }) {
   const { theme } = useContext(SettingsContext);
   const { deleteItem } = useClothes(); // Hook för API-borttagning
   const item = route.params?.item;
 
   const [modalVisible, setModalVisible] = useState(false); // Visar/döljer redigeringsmodal
-  const [loadingBarcode, setLoadingBarcode] = useState(false); // Visar laddningsstatus för QR
-  const [localBarcode, setLocalBarcode] = useState(null); // Lagrad QR-kod
-
-  // Funktion som genererar och sparar en QR-kod lokalt
-  const handleGenerateBarcode = async () => {
-    try {
-      setLoadingBarcode(true);
-      const generatedCode = "plagg-" + item._id;
-
-      // 🔸 Spara bara lokalt
-      await AsyncStorage.setItem(`barcode-${item._id}`, generatedCode);
-      setLocalBarcode(generatedCode);
-
-      Alert.alert("Klart!", "QR-kod har genererats och sparats lokalt.");
-    } catch (error) {
-      Alert.alert("Fel", "Kunde inte spara QR-koden.");
-      console.error(error);
-    } finally {
-      setLoadingBarcode(false);
-    }
-  };
 
   // Gå tillbaka vid tryck på Androids bakknapp
   useEffect(() => {
@@ -86,22 +63,6 @@ export default function DetailsScreen({ route, navigation }) {
       ]
     );
   };
-
-  // Läser in eventuell QR-kod från lagring
-  useEffect(() => {
-    const loadBarcode = async () => {
-      try {
-        const code = await AsyncStorage.getItem(`barcode-${item._id}`);
-        if (code) {
-          setLocalBarcode(code);
-        }
-      } catch (e) {
-        console.error("Kunde inte läsa lokal QR-kod:", e);
-      }
-    };
-
-    loadBarcode();
-  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>
@@ -179,48 +140,6 @@ export default function DetailsScreen({ route, navigation }) {
                 {item.notes}
               </Text>
             </View>
-          </View>
-        )}
-        <View style={{ alignItems: "center", marginVertical: 20 }}>
-          {localBarcode ? (
-            <>
-              <Text style={{ color: theme.text, marginBottom: 10 }}>
-                QR-kod för plagget:
-              </Text>
-              <QRCode value={localBarcode} size={160} />
-            </>
-          ) : (
-            <Button
-              title={loadingBarcode ? "Genererar..." : "Generera QR-kod"}
-              onPress={handleGenerateBarcode}
-              theme={theme}
-              icon={
-                <MaterialIcons
-                  name="qr-code"
-                  size={20}
-                  color={theme.buttonText}
-                />
-              }
-            />
-          )}
-        </View>
-        {localBarcode && (
-          <View
-            style={{
-              alignItems: "center",
-              paddingVertical: 10,
-              flexDirection: "row",
-              justifyContent: "center"
-            }}>
-            <MaterialIcons
-              name="qr-code"
-              size={22}
-              color={theme.text}
-              style={{ marginRight: 6 }}
-            />
-            <Text style={{ color: theme.text }}>
-              QR-kod sparad för detta plagg
-            </Text>
           </View>
         )}
 

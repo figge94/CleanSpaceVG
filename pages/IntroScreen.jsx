@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Animated
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Används för att spara att introduktionen är genomförd
 import Onboarding from "react-native-onboarding-swiper"; // Paket för att skapa snygga introduktionsskärmar
 
@@ -10,39 +17,57 @@ export default function IntroScreen({ navigation }) {
     await AsyncStorage.setItem("hasSeenIntro", "true"); // Sparar flagga i enhetens minne
     navigation.replace("Tabs"); // Byter till huvudsidan utan möjlighet att gå tillbaka
   };
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true
+    }).start();
+  }, []);
 
   return (
     <Onboarding
       onSkip={handleFinishIntro} // Körs om användaren trycker "Hoppa över"
       onDone={handleFinishIntro} // Körs när användaren slutför alla slides
+      showNext={true}
+      showDone={false}
       containerStyles={{ paddingBottom: 50 }} // Extra padding längst ner
       titleStyles={styles.title} // Stil för rubriker
       subTitleStyles={styles.subtitle} // Stil för underrubriker
+      bottomBarHighlight={false}
       pages={[
         {
-          backgroundColor: "#fff",
+          backgroundColor: "#D9C7BF",
           image: (
-            <Image
-              source={require("../assets/Screenshot_20250319_201850.png")}
-              style={{ width: 300, height: 490 }}
-            />
+            <Animated.View style={{ opacity: fadeAnim }}>
+              <Image
+                source={require("../assets/Screenshot_20250319_201850.png")}
+                style={{ width: 300, height: 490 }}
+              />
+            </Animated.View>
           ),
-          title: "Välkommen!",
-          subtitle: "Få koll på vad du har i garderoben"
+          title: "Välkommen till CleanSpace",
+          subtitle: "Din smarta hjälpreda för att rensa garderoben"
         },
         {
-          backgroundColor: "#fdeb93",
+          backgroundColor: "#D0B9AF",
           image: (
-            <Image
-              source={require("../assets/Screenshot_20250319_202239.png")}
-              style={{ width: 300, height: 490 }}
-            />
+            <Animated.View style={{ opacity: fadeAnim }}>
+              <Image
+                source={require("../assets/Screenshot_20250319_202239.png")}
+                style={{ width: 300, height: 490 }}
+              />
+            </Animated.View>
           ),
-          title: "Tips & Statistik",
-          subtitle: "Få smarta insikter om dina kläder"
+          title: "Statistik & tips",
+          subtitle:
+            "Se vilka plagg du använder – och få smarta organiseringstips"
         },
+
         {
-          backgroundColor: "#e9bcbe",
+          backgroundColor: "#C6AB9F",
           image: (
             <Image
               source={require("../assets/Screenshot_20250319_201850.png")}
@@ -64,33 +89,33 @@ export default function IntroScreen({ navigation }) {
 // Stilar för rubriker, text och knapp i introduktionen
 const styles = StyleSheet.create({
   image: {
-    width: 250,
-    height: 250,
-    alignSelf: "center"
+    width: 300,
+    height: 490,
+    resizeMode: "contain"
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: "bold",
     color: "#333",
-    textAlign: "center"
-  },
-  subtitle: {
-    fontSize: 22,
-    color: "#444",
     textAlign: "center",
     paddingHorizontal: 20
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#444",
+    textAlign: "center",
+    paddingHorizontal: 30
   },
   button: {
     backgroundColor: "#A47864",
     paddingVertical: 12,
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
     borderRadius: 10,
-    marginTop: 20
+    alignSelf: "center"
   },
   buttonText: {
-    color: "white",
+    color: "#fff",
     fontWeight: "bold",
-    fontSize: 16,
-    textAlign: "center"
+    fontSize: 16
   }
 });
