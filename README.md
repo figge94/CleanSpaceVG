@@ -5,7 +5,7 @@
 Följ dessa steg för att installera och köra projektet lokalt:
 
 1. **Kloning av repo**  
-   git clone https://github.com/figge94/CleanSpace.git  
+   git clone https://github.com/figge94/CleanSpaceVG.git  
    cd CleanSpace
 
 2. **Installera beroenden**  
