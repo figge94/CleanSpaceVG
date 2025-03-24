@@ -6,6 +6,7 @@ import TipItem from "../components/TipItem"; // Komponent för varje enskilt tip
 import { TipsStyle } from "../styles/pages/TipsStyle"; // Stil för sidan
 import allTips from "../data/TipsData"; // Lista med alla tips
 import { MaterialIcons } from "@expo/vector-icons";
+import FeaturedTip from "../components/tips/FeaturedTip";
 
 // Skärm som visar ett slumpmässigt tips - med möjlighet att filtrera och expandera fler tips
 export default function TipsScreen({ navigation }) {
@@ -48,43 +49,12 @@ export default function TipsScreen({ navigation }) {
 
       {/* Visar slumpmässigt tips högst upp */}
       <View style={TipsStyle.featuredTipContainer}>
-        {randomTip && (
-          <Animated.View
-            style={[
-              TipsStyle.featuredTip,
-              { backgroundColor: theme.cardBackground, opacity: fadeAnim }
-            ]}>
-            <View>
-              <Text style={[TipsStyle.featuredTipTitle, { color: theme.text }]}>
-                {randomTip.title}
-              </Text>
-              <Text style={[TipsStyle.featuredTipText, { color: theme.text }]}>
-                {randomTip.text}
-              </Text>
-            </View>
-
-            {/* Knapp som slumpar tips */}
-            <TouchableOpacity
-              onPress={getRandomTip}
-              style={[
-                TipsStyle.shuffleButton,
-                { backgroundColor: theme.buttonBackground }
-              ]}>
-              <MaterialIcons
-                name="refresh"
-                size={22}
-                color={theme.buttonText}
-              />
-              <Text
-                style={[
-                  TipsStyle.shuffleButtonText,
-                  { color: theme.buttonText }
-                ]}>
-                Nytt tips
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
-        )}
+        <FeaturedTip
+          tip={randomTip}
+          theme={theme}
+          fadeAnim={fadeAnim}
+          onRefresh={getRandomTip}
+        />
       </View>
 
       {/* Knapp som visar/döljer listan med fler tips */}
