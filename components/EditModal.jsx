@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Text, View } from "react-native";
 import { globalStyles } from "../styles/allStyles";
-import EditForm from "./EditForm";
+import { EditForm } from "../components";
 
 export default function EditModal({ visible, onClose, item, theme }) {
   return (

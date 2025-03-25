@@ -61,21 +61,7 @@ export const tipsStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold"
   },
-  toggleButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    marginVertical: 10,
-    alignSelf: "stretch",
-    alignItems: "center",
-    backgroundColor: "#007AFF",
-    elevation: 2
-  },
-  toggleButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#fff"
-  },
+
   featuredTipContainer: {
     marginVertical: 10,
     padding: 15,

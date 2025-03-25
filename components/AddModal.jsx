@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Text } from "react-native";
 import { globalStyles } from "../styles/allStyles";
-import AddForm from "./AddForm";
+import { AddForm } from "../components";
 
 export default function AddModal({ visible, onClose, theme }) {
   return (

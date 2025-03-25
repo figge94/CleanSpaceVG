@@ -1,14 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/allStyles";
 
-import {
-  HomeButtons,
-  HomeHeader,
-  HomeIntro
-} from "../components/HomeComponents";
+import { SettingsContext } from "../context/SettingsContext";
+
+import { HomeButtons, HomeIntro } from "../components";
+import { globalStyles, imageStyles } from "../styles/allStyles";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,7 +28,13 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <HomeHeader />
+        <View style={imageStyles.headerContainer}>
+          <Image
+            source={require("../assets/wardrobe.png")}
+            style={imageStyles.wardrobeImage}
+          />
+        </View>
+
         <View style={globalStyles.contentContainer}>
           <HomeIntro theme={theme} />
           <HomeButtons theme={theme} navigation={navigation} />

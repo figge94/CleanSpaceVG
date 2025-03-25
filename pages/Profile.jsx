@@ -1,11 +1,9 @@
 import { useContext } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext"; // Hanterar tema och mörkt/ljust läge
-import profilePic from "../assets/user.png"; // Profilbilden
 import { buttonStyles, globalStyles, imageStyles } from "../styles/allStyles"; // Gemensamma bildstilar
-import Button from "../components/Button"; // Återanvändbar knappkomponent
-import { Animated } from "react-native";
+import { Button } from "../components";
 
 // Skärm som visar användarens profilinformation samt inställningar
 export default function ProfileScreen({ navigation }) {
@@ -25,7 +23,10 @@ export default function ProfileScreen({ navigation }) {
     <View
       style={[globalStyles.container, { backgroundColor: theme.background }]}>
       {/* Profilbild */}
-      <Image source={profilePic} style={imageStyles.profileImage} />
+      <Image
+        source={require("../assets/user.png")}
+        style={imageStyles.profileImage}
+      />
 
       {/* Användarnamn och e-post */}
       <Text style={[globalStyles.username, { color: theme.text }]}>

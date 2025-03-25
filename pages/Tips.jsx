@@ -1,13 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Text, View, TouchableOpacity, Animated } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/allStyles";
-import { TipsStyle } from "../styles/screens/tipsStyles";
+import { buttonStyles, globalStyles } from "../styles/allStyles";
+import { tipsStyles } from "../styles/screensStyles";
 import allTips from "../data/TipsData";
 
-import FeaturedTip from "../components/FeaturedTip";
-import CategorySelector from "../components/CategorySelector";
-import TipsList from "../components/TipsList";
+import { FeaturedTip, CategorySelector, TipsList } from "../components";
 
 export default function TipsScreen() {
   const { theme } = useContext(SettingsContext);
@@ -43,7 +41,7 @@ export default function TipsScreen() {
       style={[globalStyles.container, { backgroundColor: theme.background }]}>
       <Text style={[globalStyles.title, { color: theme.text }]}>Tips</Text>
 
-      <View style={TipsStyle.featuredTipContainer}>
+      <View style={tipsStyles.featuredTipContainer}>
         <FeaturedTip
           tip={randomTip}
           theme={theme}
@@ -54,14 +52,15 @@ export default function TipsScreen() {
 
       <TouchableOpacity
         style={[
-          TipsStyle.toggleButton,
+          buttonStyles.toggleButton,
           { backgroundColor: theme.buttonBackground }
         ]}
         onPress={() => {
           setShowTips(!showTips);
           setSelectedCategory(showTips ? null : "Förvaring");
         }}>
-        <Text style={[TipsStyle.toggleButtonText, { color: theme.buttonText }]}>
+        <Text
+          style={[buttonStyles.toggleButtonText, { color: theme.buttonText }]}>
           {showTips ? "Dölj fler tips" : "Visa fler tips"}
         </Text>
       </TouchableOpacity>

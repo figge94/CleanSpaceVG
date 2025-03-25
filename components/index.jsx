@@ -1,13 +1,21 @@
 // components/ClothesComponents.jsx
-
 export { default as AddForm } from "./AddForm";
 export { default as AddModal } from "./AddModal";
+export { default as Button } from "./Button";
+export { default as Card } from "./Card";
 export { default as CategoryFilter } from "./CategoryFilter";
+export { default as CategorySelector } from "./CategorySelector";
 export { default as ClothesList } from "./ClothesList";
-export { default as FavoriteButton } from "./FavoriteButton";
-export { default as SearchBar } from "./SearchBar";
 export { default as DetailCard } from "./DetailCard";
 export { default as EditModal } from "./EditModal";
-export { default as ModalComponent } from "./Modal";
+export { default as FavoriteButton } from "./FavoriteButton";
+export { default as FeaturedTip } from "./RandomTips";
+export { default as HomeButtons } from "./HomeButtons";
+export { default as HomeHeader } from "./HomeHeader";
+export { default as HomeIntro } from "./HomeIntro";
+export { default as SearchBar } from "./SearchBar";
+export { default as StatCard } from "./StatCard";
+export { default as StatOverview } from "./StatOverview";
+export { default as StatCategoryList } from "./StatCategoryList";
+export { default as TipsList } from "./TipsList";
 export { default as TipItem } from "./TipItem";
-export { default as DetailComponent } from "./DetailComponent";

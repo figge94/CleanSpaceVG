@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { globalStyles } from "../styles/allStyles";
 import { useClothes } from "../data/apiData";
 import {
@@ -10,8 +11,6 @@ import {
   FavoriteButton,
   SearchBar
 } from "../components";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ClothesScreen({ navigation }) {
   const { theme } = useContext(SettingsContext);

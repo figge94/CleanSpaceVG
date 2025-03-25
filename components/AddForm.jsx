@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   TextInput,
@@ -9,12 +9,12 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
-import { useClothes } from "../data/apiData"; // Egen hook för att kommunicera med API:t
-import { SettingsContext } from "../context/SettingsContext"; // Hanterar färgtema
-import { globalStyles } from "../styles/allStyles";
-import Button from "./Button"; // Återanvändbar knappkomponent
 import DateTimePicker from "@react-native-community/datetimepicker"; // För att välja datum
 import { MaterialIcons } from "@expo/vector-icons";
+import { SettingsContext } from "../context/SettingsContext"; // Hanterar färgtema
+import { useClothes } from "../data/apiData"; // Egen hook för att kommunicera med API:t
+import { globalStyles } from "../styles/allStyles";
+import { Button } from "../components"; // Återanvändbar knappkomponent
 
 // Komponent som innehåller ett formulär för att lägga till ett nytt plagg
 export default function AddClothesForm({ onClose }) {
@@ -29,15 +29,6 @@ export default function AddClothesForm({ onClose }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tags, setTags] = useState("");
   const [notes, setNotes] = useState("");
-  const [barcode, setBarcode] = useState("");
-
-  // Skapar ett unikt ID för varje plagg direkt när komponenten laddas
-  useEffect(() => {
-    if (!barcode) {
-      const newCode = "plagg-" + Date.now();
-      setBarcode(newCode);
-    }
-  }, []);
 
   // Uppdaterar datum när användaren väljer ett nytt
   const onChangeDate = (event, selectedDate) => {
@@ -58,7 +49,6 @@ export default function AddClothesForm({ onClose }) {
       category: { main: category },
       condition,
       notes,
-      barcode,
       lastUsed: lastUsed ? new Date(lastUsed) : null,
       tags: tags ? tags.split(",").map((tag) => tag.trim()) : [],
       clearedAt: null

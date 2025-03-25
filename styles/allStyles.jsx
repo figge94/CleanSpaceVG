@@ -197,6 +197,28 @@ export const buttonStyles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     alignItems: "center"
+  },
+  toggleButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+    alignSelf: "stretch",
+    alignItems: "center",
+    backgroundColor: "#007AFF",
+    elevation: 2
+  },
+  toggleButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff"
+  },
+  favoriteButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignSelf: "center"
   }
 });
 

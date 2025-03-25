@@ -4,8 +4,8 @@ import { useClothes } from "../data/apiData"; // Egen hook för att hantera API-
 import { SettingsContext } from "../context/SettingsContext"; // Kontext för ljust/mörkt tema
 import { globalStyles } from "../styles/allStyles";
 
-// EditClothesForm – Komponent som visar ett formulär för att redigera ett plagg
-export default function EditClothesForm({ item, onClose }) {
+// EditForm – Komponent som visar ett formulär för att redigera ett plagg
+export default function EditForm({ item, onClose }) {
   const { updateItem, refetch } = useClothes(); // Funktioner för att uppdatera och hämta kläder
   const { theme } = useContext(SettingsContext); // Hämta aktuellt tema
 

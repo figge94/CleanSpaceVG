@@ -1,9 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Button from "./Button";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { buttonStyles, globalStyles } from "../styles/allStyles";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { buttonStyles } from "../styles/allStyles";
+import { Button } from "../components";
 
 export default function HomeButtons({ theme, navigation }) {
   const goToIntro = async () => {

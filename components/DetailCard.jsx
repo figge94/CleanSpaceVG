@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import Button from "./Button"; // se till att denna sökväg stämmer
+import { Button } from "../components";
 import { globalStyles, buttonStyles, tagStyles } from "../styles/allStyles";
 import { detailStyles } from "../styles/screensStyles";
 

@@ -4,8 +4,7 @@ import { SettingsContext } from "../context/SettingsContext";
 import { globalStyles } from "../styles/allStyles";
 import { detailStyles } from "../styles/screensStyles";
 import { useClothes } from "../data/apiData";
-import DetailCard from "../components/DetailCard";
-import EditModal from "../components/EditModal";
+import { DetailCard, EditModal } from "../components";
 import useDeleteConfirmation from "../context/useDeleteConfirmation";
 
 export default function DetailsScreen({ route, navigation }) {

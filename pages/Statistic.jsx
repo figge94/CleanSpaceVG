@@ -4,12 +4,7 @@ import { SettingsContext } from "../context/SettingsContext";
 import { globalStyles } from "../styles/allStyles";
 import { statisticStyles } from "../styles/screensStyles";
 import { useClothes } from "../data/apiData";
-
-import {
-  StatOverview,
-  StatCategoryList,
-  StatCard
-} from "../components/StatisticsComponents";
+import { StatOverview, StatCategoryList, StatCard } from "../components";
 
 export default function StatisticsScreen() {
   const { theme } = useContext(SettingsContext);

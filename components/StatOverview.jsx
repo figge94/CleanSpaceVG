@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import StatCard from "./StatCard";
+import { StatCard } from "../components";
 import { cardStyles } from "../styles/allStyles";
 
 export default function StatOverview({ total, theme }) {

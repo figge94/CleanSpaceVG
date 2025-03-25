@@ -1,6 +1,6 @@
 import React from "react";
 import { View, FlatList, ActivityIndicator, Text } from "react-native";
-import Card from "./Card";
+import { Card } from "../components";
 
 export default function ClothesList({
   isLoading,

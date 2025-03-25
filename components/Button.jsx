@@ -7,7 +7,6 @@ export default function Button({ title, onPress, icon, theme, style }) {
   return (
     // Pressable används istället för TouchableOpacity för att ge bättre kontroll över tryckeffekt
     <Pressable
-      // style-funktionen gör att knappen får en visuell feedback när den trycks (lite genomskinlig)
       style={({ pressed }) => [
         buttonStyles.button, // Basstil för knappen
         { backgroundColor: theme.buttonBackground, opacity: pressed ? 0.7 : 1 }, // Temafärg och tryckeffekt

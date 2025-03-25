@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, FlatList, View } from "react-native";
 import { globalStyles } from "../styles/allStyles";
-import StatCard from "./StatCard";
+import { StatCard } from "../components";
 
 export default function StatCategoryList({ categories, theme }) {
   return (

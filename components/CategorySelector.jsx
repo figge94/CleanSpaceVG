@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, TouchableOpacity, Text } from "react-native";
-import { TipsStyle } from "../../styles/screens/tipsStyles";
+import { tipsStyles } from "../styles/screensStyles";
 
 export default function CategorySelector({
   categories,
@@ -14,12 +14,12 @@ export default function CategorySelector({
       horizontal
       keyExtractor={(item) => item}
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={TipsStyle.categoryScroll}
+      contentContainerStyle={tipsStyles.categoryScroll}
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => onSelect(item)}
           style={[
-            TipsStyle.categoryButton,
+            tipsStyles.categoryButton,
             {
               backgroundColor:
                 selected === item
@@ -28,7 +28,10 @@ export default function CategorySelector({
             }
           ]}>
           <Text
-            style={[TipsStyle.categoryButtonText, { color: theme.buttonText }]}>
+            style={[
+              tipsStyles.categoryButtonText,
+              { color: theme.buttonText }
+            ]}>
             {item}
           </Text>
         </TouchableOpacity>
