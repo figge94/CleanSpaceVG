@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, TouchableOpacity, Text } from "react-native";
-import { TipsStyle } from "../../styles/pages/TipsStyle";
+import { TipsStyle } from "../../styles/screens/tipsStyles";
 
 export default function CategorySelector({
   categories,

@@ -8,7 +8,8 @@ import {
   Platform
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"; // Importerar ikoner
-import { TipsStyle } from "../../styles/pages/TipsStyle"; // Importerar styling för tips (TipsStyle)
+import { TipsStyle } from "../../styles/screens/tipsStyles"; // Importerar styling för tips (TipsStyle)
+import { tipsStyles } from "../styles/screensStyles";
 
 // Aktiverar LayoutAnimation på Android (kräver extra tillåtelse) för att animera komponenter vid uppdatering av layout (t.ex. vid expandering)
 if (
@@ -39,16 +40,16 @@ export default function TipItem({
       activeOpacity={0.8} // Minskad opacitet vid tryck
       onPress={toggleExpand} // Anropar funktionen för att expandera vid tryck
       style={[
-        TipsStyle.tipCard, // Grundläggande stil för tipset
-        isExpanded && TipsStyle.tipCardExpanded, // Extra stil om det är öppet
+        tipsStyles.tipCard, // Grundläggande stil för tipset
+        isExpanded && tipsStyles.tipCardExpanded, // Extra stil om det är öppet
         {
           backgroundColor: theme.cardBackground, // Anpassar färg efter valt tema
           borderColor: theme.borderColor
         }
       ]}>
       {/* Titeln på tipset + pil för att expandera/minimera */}
-      <View style={TipsStyle.tipHeader}>
-        <Text style={[TipsStyle.tipTitle, { color: theme.text }]}>
+      <View style={tipsStyles.tipHeader}>
+        <Text style={[tipsStyles.tipTitle, { color: theme.text }]}>
           {item.title}
         </Text>
         <MaterialIcons
@@ -59,7 +60,7 @@ export default function TipItem({
       </View>
       {/* Visar tipstexten om kortet är expanderat */}
       {isExpanded && (
-        <Text style={[TipsStyle.tipText, { color: theme.text }]}>
+        <Text style={[tipsStyles.tipText, { color: theme.text }]}>
           {item.text}
         </Text>
       )}

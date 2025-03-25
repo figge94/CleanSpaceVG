@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, FlatList, View } from "react-native";
-import { GlobalStyle } from "../../styles/globalStyles";
+import { globalStyles } from "../styles/allStyles";
 import StatCard from "./StatCard";
 
 export default function StatCategoryList({ categories, theme }) {
   return (
     <>
       <Text
-        style={[GlobalStyle.subTitle, { color: theme.text, marginTop: 10 }]}>
+        style={[globalStyles.subTitle, { color: theme.text, marginTop: 10 }]}>
         Antal kläder per kategori:
       </Text>
 

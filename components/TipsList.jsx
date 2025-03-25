@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import TipItem from "./TipItem";
-import { TipsStyle } from "../../styles/pages/TipsStyle";
+import { tipsStyles } from "../styles/screensStyles";
 
 export default function TipsList({
   tips,
@@ -21,7 +21,7 @@ export default function TipsList({
           setExpandedTipId={setExpandedTipId}
         />
       )}
-      contentContainerStyle={TipsStyle.content}
+      contentContainerStyle={tipsStyles.content}
       ListFooterComponent={<View style={{ height: 20 }} />}
     />
   );

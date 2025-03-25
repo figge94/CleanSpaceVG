@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { StatisticStyle } from "../../styles/pages/StatisticStyle";
+import { statisticStyles } from "../styles/screensStyles";
 
 export default function StatCard({ title, value, theme }) {
   return (
     <View
       style={[
-        StatisticStyle.card,
+        statisticStyles.card,
         {
           backgroundColor: theme.cardBackground,
           shadowColor: "#000",
@@ -15,10 +15,10 @@ export default function StatCard({ title, value, theme }) {
           elevation: 3
         }
       ]}>
-      <Text style={[StatisticStyle.statTitle, { color: theme.text }]}>
+      <Text style={[statisticStyles.statTitle, { color: theme.text }]}>
         {title}
       </Text>
-      <Text style={[StatisticStyle.statValue, { color: theme.text }]}>
+      <Text style={[statisticStyles.statValue, { color: theme.text }]}>
         {value}
       </Text>
     </View>

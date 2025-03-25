@@ -3,8 +3,7 @@ import { Text, View, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext"; // Hanterar tema och mörkt/ljust läge
 import profilePic from "../assets/user.png"; // Profilbilden
-import { ProfileStyle } from "../styles/pages/ProfilePageStyle"; // Stilar specifika för profilsidan
-import { ImageStyle } from "../styles/ImageStyle"; // Gemensamma bildstilar
+import { buttonStyles, globalStyles, imageStyles } from "../styles/allStyles"; // Gemensamma bildstilar
 import Button from "../components/Button"; // Återanvändbar knappkomponent
 import { Animated } from "react-native";
 
@@ -24,32 +23,37 @@ export default function ProfileScreen({ navigation }) {
   return (
     // Hela sidan får bakgrundsfärg baserat på aktuellt tema
     <View
-      style={[ProfileStyle.container, { backgroundColor: theme.background }]}>
+      style={[globalStyles.container, { backgroundColor: theme.background }]}>
       {/* Profilbild */}
-      <Image source={profilePic} style={ImageStyle.profileImage} />
+      <Image source={profilePic} style={imageStyles.profileImage} />
 
       {/* Användarnamn och e-post */}
-      <Text style={[ProfileStyle.username, { color: theme.text }]}>
+      <Text style={[globalStyles.username, { color: theme.text }]}>
         Webmaster
       </Text>
-      <Text style={[ProfileStyle.email, { color: theme.text }]}>
+      <Text style={[globalStyles.email, { color: theme.text }]}>
         user@example.com
       </Text>
 
-      {/* Navigeringsknapp till statistik */}
-      <Button
-        icon={
-          <MaterialIcons name="bar-chart" size={22} color={theme.buttonText} />
-        }
-        title="Statistik"
-        onPress={() => navigation.navigate("Statistics")}
-        theme={theme}
-      />
-
       {/* Sektion för inställningar */}
-      <View style={ProfileStyle.settingsContainer}>
-        <Text style={[ProfileStyle.settingsHeader, { color: theme.text }]}>
-          Inställningar:
+      <View style={buttonStyles.buttonContainer}>
+        {/* Navigeringsknapp till statistik */}
+        <Button
+          icon={
+            <MaterialIcons
+              name="bar-chart"
+              size={22}
+              color={theme.buttonText}
+            />
+          }
+          title="Statistik"
+          onPress={() => navigation.navigate("Statistics")}
+          theme={theme}
+        />
+      </View>
+      <View style={buttonStyles.buttonContainer}>
+        <Text style={[globalStyles.subTitle, { color: theme.text }]}>
+          Inställningar
         </Text>
 
         {/* Knapp som växlar mellan mörkt och ljust tema */}

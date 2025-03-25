@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
+import { globalStyles } from "../styles/allStyles";
 
 export default function HomeIntro({ theme }) {
   return (

@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/globalStyles";
-import { StatisticStyle } from "../styles/pages/StatisticStyle";
+import { globalStyles } from "../styles/allStyles";
+import { statisticStyles } from "../styles/screensStyles";
 import { useClothes } from "../data/apiData";
 
-import StatOverview from "../components/statistics/StatOverview";
-import StatCategoryList from "../components/statistics/StatCategoryList";
+import {
+  StatOverview,
+  StatCategoryList,
+  StatCard
+} from "../components/StatisticsComponents";
 
 export default function StatisticsScreen() {
   const { theme } = useContext(SettingsContext);
@@ -31,7 +34,7 @@ export default function StatisticsScreen() {
       {isLoading ? (
         <ActivityIndicator size="large" color={theme.text} />
       ) : error ? (
-        <Text style={[StatisticStyle.errorText, { color: theme.text }]}>
+        <Text style={[statisticStyles.errorText, { color: theme.text }]}>
           {error}
         </Text>
       ) : (

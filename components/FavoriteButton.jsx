@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 
-export default function FavoriteToggleButton({ value, onToggle, theme }) {
+export default function FavoriteButton({ value, onToggle, theme }) {
   return (
     <TouchableOpacity
       onPress={onToggle}

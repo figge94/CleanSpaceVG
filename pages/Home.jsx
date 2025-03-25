@@ -2,11 +2,13 @@ import React, { useEffect, useContext, useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/globalStyles";
+import { globalStyles } from "../styles/allStyles";
 
-import HomeHeader from "../components/home/HomeHeader";
-import HomeIntro from "../components/home/HomeIntro";
-import HomeButtons from "../components/home/HomeButtons";
+import {
+  HomeButtons,
+  HomeHeader,
+  HomeIntro
+} from "../components/HomeComponents";
 
 SplashScreen.preventAutoHideAsync();
 

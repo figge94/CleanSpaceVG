@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Används för att spara att introduktionen är genomförd
 import Onboarding from "react-native-onboarding-swiper"; // Paket för att skapa snygga introduktionsskärmar
+import { buttonStyles, globalStyles, imageStyles } from "../styles/allStyles";
 
 // IntroScreen - visas första gången man öppnar appen
 export default function IntroScreen({ navigation }) {
@@ -34,7 +34,7 @@ export default function IntroScreen({ navigation }) {
       showNext={true}
       showDone={false}
       containerStyles={{ paddingBottom: 50 }} // Extra padding längst ner
-      titleStyles={styles.title} // Stil för rubriker
+      titleStyles={globalStyles.title} // Stil för rubriker
       subTitleStyles={styles.subtitle} // Stil för underrubriker
       bottomBarHighlight={false}
       pages={[
@@ -44,7 +44,7 @@ export default function IntroScreen({ navigation }) {
             <Animated.View style={{ opacity: fadeAnim }}>
               <Image
                 source={require("../assets/Screenshot_20250319_201850.png")}
-                style={{ width: 300, height: 490 }}
+                style={imageStyles.introImage}
               />
             </Animated.View>
           ),
@@ -57,7 +57,7 @@ export default function IntroScreen({ navigation }) {
             <Animated.View style={{ opacity: fadeAnim }}>
               <Image
                 source={require("../assets/Screenshot_20250319_202239.png")}
-                style={{ width: 300, height: 490 }}
+                style={imageStyles.introImage}
               />
             </Animated.View>
           ),
@@ -71,13 +71,13 @@ export default function IntroScreen({ navigation }) {
           image: (
             <Image
               source={require("../assets/Screenshot_20250319_201850.png")}
-              style={{ width: 300, height: 490 }}
+              style={imageStyles.introImage}
             />
           ),
           title: "Börja nu!",
           subtitle: (
             <TouchableOpacity style={styles.button} onPress={handleFinishIntro}>
-              <Text style={styles.buttonText}>Kom igång</Text>
+              <Text style={buttonStyles.buttonText}>Kom igång</Text>
             </TouchableOpacity>
           )
         }
@@ -88,18 +88,6 @@ export default function IntroScreen({ navigation }) {
 
 // Stilar för rubriker, text och knapp i introduktionen
 const styles = StyleSheet.create({
-  image: {
-    width: 300,
-    height: 490,
-    resizeMode: "contain"
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    paddingHorizontal: 20
-  },
   subtitle: {
     fontSize: 18,
     color: "#444",
@@ -112,10 +100,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 10,
     alignSelf: "center"
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16
   }
 });

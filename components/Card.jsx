@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Animated } from "react-native"; // Importerar komponenter från React Native
 import EvilIcons from "@expo/vector-icons/EvilIcons"; // Importerar ikoner
 import MaterialIcons from "@expo/vector-icons/MaterialIcons"; // Importerar ikoner
-import { CardStyle } from "../styles/CardStyle"; // Importerar styling för kort (CardStyle)
+import { cardStyles } from "../styles/allStyles"; // Importerar styling för kort (CardStyle)
 import { useRef } from "react"; // Importerar useRef för att skapa en referens till en variabel
 
 // Card – visar ett kort med information om ett plagg
@@ -12,7 +12,6 @@ export default function Card({
   theme,
   onPress,
   onToggleFavorite,
-  hasQRCode,
   isFavorite
 }) {
   // Skapar en animationseffekt när man trycker på hjärtat
@@ -39,10 +38,10 @@ export default function Card({
   return (
     // Hela kortet är tryckbart, navigerar till detaljer
     <TouchableOpacity
-      style={[CardStyle.card, { backgroundColor: theme.cardBackground }]}
+      style={[cardStyles.card, { backgroundColor: theme.cardBackground }]}
       onPress={onPress}
       activeOpacity={0.8}>
-      <View style={CardStyle.cardContent}>
+      <View style={cardStyles.cardContent}>
         {/* Sektion till vänster – visar ett hjärta som markerar favoriter */}
         <TouchableOpacity
           onPress={handleFavoritePress}
@@ -58,14 +57,14 @@ export default function Card({
 
         {/* Sektionen i mitten – visar namn, skick och senast använd */}
         <View style={{ flex: 1 }}>
-          <Text style={[CardStyle.title, { color: theme.text }]}>
+          <Text style={[cardStyles.title, { color: theme.text }]}>
             {item.name}
           </Text>
 
-          <Text style={[CardStyle.text, { color: theme.text }]}>
+          <Text style={[cardStyles.text, { color: theme.text }]}>
             Skick: {item.condition}
           </Text>
-          <Text style={[CardStyle.text, { color: theme.text }]}>
+          <Text style={[cardStyles.text, { color: theme.text }]}>
             Senast använd:{" "}
             {item.lastUsed
               ? new Date(item.lastUsed).toLocaleDateString("sv-SE")
@@ -78,7 +77,7 @@ export default function Card({
           name="chevron-right"
           size={40}
           color={theme.text}
-          style={CardStyle.arrowIcon}
+          style={cardStyles.arrowIcon}
         />
       </View>
     </TouchableOpacity>

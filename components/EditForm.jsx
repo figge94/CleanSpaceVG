@@ -2,7 +2,7 @@ import { useState, useContext } from "react"; // Importerar React Hook-funktione
 import { View, TextInput, TouchableOpacity, Text, Alert } from "react-native"; // Importerar komponenter från React Native
 import { useClothes } from "../data/apiData"; // Egen hook för att hantera API-anrop
 import { SettingsContext } from "../context/SettingsContext"; // Kontext för ljust/mörkt tema
-import { globalStyles } from "../styles/globalStyles";
+import { globalStyles } from "../styles/allStyles";
 
 // EditClothesForm – Komponent som visar ett formulär för att redigera ett plagg
 export default function EditClothesForm({ item, onClose }) {

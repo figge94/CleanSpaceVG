@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Button from "../Button";
+import Button from "./Button";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { globalStyles } from "../../styles/globalStyles";
+import { buttonStyles, globalStyles } from "../styles/allStyles";
 
 export default function HomeButtons({ theme, navigation }) {
   const goToIntro = async () => {
@@ -15,7 +15,7 @@ export default function HomeButtons({ theme, navigation }) {
   };
 
   return (
-    <View style={globalStyles.buttonContainer}>
+    <View style={buttonStyles.buttonContainer}>
       <Button
         title="Min garderob"
         onPress={() => navigation.navigate("Clothes")}

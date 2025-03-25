@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal, View, Text } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
-import AddClothesForm from "./AddClothesForm";
+import { Modal, Text, View } from "react-native";
+import { globalStyles } from "../styles/allStyles";
+import EditForm from "./EditForm";
 
-export default function AddClothesModal({ visible, onClose, theme }) {
+export default function EditModal({ visible, onClose, item, theme }) {
   return (
     <Modal
       animationType="slide"
@@ -25,9 +25,9 @@ export default function AddClothesModal({ visible, onClose, theme }) {
             borderRadius: 10
           }}>
           <Text style={[globalStyles.title, { color: theme.text }]}>
-            Lägg till plagg
+            Redigera plagg
           </Text>
-          <AddClothesForm onClose={onClose} />
+          <EditForm item={item} onClose={onClose} />
         </View>
       </View>
     </Modal>

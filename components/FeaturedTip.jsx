@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { TipsStyle } from "../../styles/pages/TipsStyle";
+import { TipsStyle } from "../../styles/screens/tipsStyles";
 
 export default function FeaturedTip({ tip, theme, fadeAnim, onRefresh }) {
   if (!tip) return null;

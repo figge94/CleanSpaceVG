@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Text, View, TouchableOpacity, Animated } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/globalStyles";
-import { TipsStyle } from "../styles/pages/TipsStyle";
+import { globalStyles } from "../styles/allStyles";
+import { TipsStyle } from "../styles/screens/tipsStyles";
 import allTips from "../data/TipsData";
 
-import FeaturedTip from "../components/tips/FeaturedTip";
-import CategorySelector from "../components/tips/CategorySelector";
-import TipsList from "../components/tips/TipsList";
+import FeaturedTip from "../components/FeaturedTip";
+import CategorySelector from "../components/CategorySelector";
+import TipsList from "../components/TipsList";
 
 export default function TipsScreen() {
   const { theme } = useContext(SettingsContext);

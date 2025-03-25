@@ -1,13 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles } from "../styles/globalStyles";
+import { globalStyles } from "../styles/allStyles";
 import { useClothes } from "../data/apiData";
-import CategoryFilter from "../components/clothes/CategoryFilter";
-import FavoriteToggleButton from "../components/clothes/FavoriteToggleButton";
-import SearchBar from "../components/clothes/SearchBar";
-import ClothesList from "../components/clothes/ClothesList";
-import AddClothesModal from "../components/clothes/AddClothesModal";
+import {
+  AddModal,
+  CategoryFilter,
+  ClothesList,
+  FavoriteButton,
+  SearchBar
+} from "../components";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ClothesScreen({ navigation }) {
@@ -75,7 +78,7 @@ export default function ClothesScreen({ navigation }) {
         theme={theme}
       />
 
-      <FavoriteToggleButton
+      <FavoriteButton
         theme={theme}
         value={showOnlyFavorites}
         onToggle={() => setShowOnlyFavorites(!showOnlyFavorites)}
@@ -93,7 +96,7 @@ export default function ClothesScreen({ navigation }) {
         favorites={favorites}
       />
 
-      <AddClothesModal
+      <AddModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         theme={theme}
