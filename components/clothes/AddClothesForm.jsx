@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useClothes } from "../../data/apiData"; // Egen hook för att kommunicera med API:t
 import { SettingsContext } from "../../context/SettingsContext"; // Hanterar färgtema
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { globalStyles } from "../../styles/globalStyles";
 import Button from "../Button"; // Återanvändbar knappkomponent
 import DateTimePicker from "@react-native-community/datetimepicker"; // För att välja datum
 import { MaterialIcons } from "@expo/vector-icons";
@@ -75,16 +75,16 @@ export default function AddClothesForm({ onClose }) {
       behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ScrollView>
         {/* Rubrik för formuläret */}
-        <Text style={[GlobalStyle.subTitle, { color: theme.text }]}>
+        <Text style={[globalStyles.subTitle, { color: theme.text }]}>
           Plagginformation
         </Text>
 
         {/* Fält för namn på plagget */}
         <Text style={{ color: theme.text, marginTop: 5 }}>Namn</Text>
         <TextInput
-          style={GlobalStyle.input}
+          style={globalStyles.input}
           placeholder="T.ex. svart tröja"
-          placeholderTextColor={GlobalStyle.text}
+          placeholderTextColor={globalStyles.text}
           value={name}
           onChangeText={setName}
         />
@@ -183,7 +183,7 @@ export default function AddClothesForm({ onClose }) {
         <Text style={{ color: theme.text, marginTop: 5 }}>Anteckningar</Text>
         <TextInput
           style={[GlobalStyle.input, { height: 70 }]}
-          placeholder="T.ex. Fått av mamma"
+          placeholder="T.ex. fått av mamma"
           placeholderTextColor={GlobalStyle.text}
           value={notes}
           onChangeText={setNotes}

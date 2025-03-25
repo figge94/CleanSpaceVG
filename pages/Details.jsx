@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, ScrollView, BackHandler, Alert } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 import { DetailStyle } from "../styles/pages/DetailStyle";
 import { useClothes } from "../data/apiData";
 import DetailCard from "../components/details/DetailCard";
@@ -56,8 +56,8 @@ export default function DetailsScreen({ route, navigation }) {
   if (!item) {
     return (
       <View
-        style={[GlobalStyle.container, { backgroundColor: theme.background }]}>
-        <Text style={[GlobalStyle.errorText, { color: theme.text }]}>
+        style={[globalStyles.container, { backgroundColor: theme.background }]}>
+        <Text style={[globalStyles.errorText, { color: theme.text }]}>
           Ingen information tillgänglig
         </Text>
       </View>

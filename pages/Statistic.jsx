@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 import { StatisticStyle } from "../styles/pages/StatisticStyle";
 import { useClothes } from "../data/apiData";
 
@@ -25,8 +25,8 @@ export default function StatisticsScreen() {
 
   return (
     <View
-      style={[GlobalStyle.container, { backgroundColor: theme.background }]}>
-      <Text style={[GlobalStyle.title, { color: theme.text }]}>Statistik</Text>
+      style={[globalStyles.container, { backgroundColor: theme.background }]}>
+      <Text style={[globalStyles.title, { color: theme.text }]}>Statistik</Text>
 
       {isLoading ? (
         <ActivityIndicator size="large" color={theme.text} />

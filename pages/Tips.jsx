@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Text, View, TouchableOpacity, Animated } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 import { TipsStyle } from "../styles/pages/TipsStyle";
 import allTips from "../data/TipsData";
 
@@ -40,8 +40,8 @@ export default function TipsScreen() {
 
   return (
     <View
-      style={[GlobalStyle.container, { backgroundColor: theme.background }]}>
-      <Text style={[GlobalStyle.title, { color: theme.text }]}>Tips</Text>
+      style={[globalStyles.container, { backgroundColor: theme.background }]}>
+      <Text style={[globalStyles.title, { color: theme.text }]}>Tips</Text>
 
       <View style={TipsStyle.featuredTipContainer}>
         <FeaturedTip

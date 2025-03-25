@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { SettingsContext } from "../context/SettingsContext";
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 
 import HomeHeader from "../components/home/HomeHeader";
 import HomeIntro from "../components/home/HomeIntro";
@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <HomeHeader />
-        <View style={GlobalStyle.contentContainer}>
+        <View style={globalStyles.contentContainer}>
           <HomeIntro theme={theme} />
           <HomeButtons theme={theme} navigation={navigation} />
         </View>

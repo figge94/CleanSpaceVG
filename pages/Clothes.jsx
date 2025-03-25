@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 import { useClothes } from "../data/apiData";
 import CategoryFilter from "../components/clothes/CategoryFilter";
 import FavoriteToggleButton from "../components/clothes/FavoriteToggleButton";
@@ -63,8 +63,8 @@ export default function ClothesScreen({ navigation }) {
 
   return (
     <View
-      style={[GlobalStyle.container, { backgroundColor: theme.background }]}>
-      <Text style={[GlobalStyle.title, { color: theme.text }]}>
+      style={[globalStyles.container, { backgroundColor: theme.background }]}>
+      <Text style={[globalStyles.title, { color: theme.text }]}>
         Min garderob
       </Text>
 

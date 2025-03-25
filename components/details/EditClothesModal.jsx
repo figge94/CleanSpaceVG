@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Text, View } from "react-native";
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { globalStyles } from "../../styles/globalStyles";
 import EditClothesForm from "../EditClothesForm";
 
 export default function EditClothesModal({ visible, onClose, item, theme }) {
@@ -24,7 +24,7 @@ export default function EditClothesModal({ visible, onClose, item, theme }) {
             padding: 20,
             borderRadius: 10
           }}>
-          <Text style={[GlobalStyle.title, { color: theme.text }]}>
+          <Text style={[globalStyles.title, { color: theme.text }]}>
             Redigera plagg
           </Text>
           <EditClothesForm item={item} onClose={onClose} />

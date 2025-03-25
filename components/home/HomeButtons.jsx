@@ -3,7 +3,7 @@ import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Button from "../Button";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { globalStyles } from "../../styles/globalStyles";
 
 export default function HomeButtons({ theme, navigation }) {
   const goToIntro = async () => {
@@ -15,7 +15,7 @@ export default function HomeButtons({ theme, navigation }) {
   };
 
   return (
-    <View style={GlobalStyle.buttonContainer}>
+    <View style={globalStyles.buttonContainer}>
       <Button
         title="Min garderob"
         onPress={() => navigation.navigate("Clothes")}

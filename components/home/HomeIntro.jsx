@@ -1,10 +1,10 @@
 import React from "react";
 import { Text } from "react-native";
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { globalStyles } from "../../styles/globalStyles";
 
 export default function HomeIntro({ theme }) {
   return (
-    <Text style={[GlobalStyle.description, { color: theme.text }]}>
+    <Text style={[globalStyles.description, { color: theme.text }]}>
       <Text style={{ fontWeight: "bold", fontSize: 25 }}>
         Rensa enkelt, organisera smart
       </Text>

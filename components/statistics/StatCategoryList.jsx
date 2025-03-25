@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, FlatList, View } from "react-native";
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { GlobalStyle } from "../../styles/globalStyles";
 import StatCard from "./StatCard";
 
 export default function StatCategoryList({ categories, theme }) {

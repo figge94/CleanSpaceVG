@@ -2,7 +2,7 @@ import { useState, useContext } from "react"; // Importerar React Hook-funktione
 import { View, TextInput, TouchableOpacity, Text, Alert } from "react-native"; // Importerar komponenter från React Native
 import { useClothes } from "../data/apiData"; // Egen hook för att hantera API-anrop
 import { SettingsContext } from "../context/SettingsContext"; // Kontext för ljust/mörkt tema
-import { GlobalStyle } from "../styles/global/GlobalStyle";
+import { globalStyles } from "../styles/globalStyles";
 
 // EditClothesForm – Komponent som visar ett formulär för att redigera ett plagg
 export default function EditClothesForm({ item, onClose }) {
@@ -43,7 +43,7 @@ export default function EditClothesForm({ item, onClose }) {
     <View>
       {/* Fält för namn */}
       <TextInput
-        style={GlobalStyle.input}
+        style={globalStyles.input}
         placeholder="Namn på plagget"
         placeholderTextColor={theme.text}
         value={name}
@@ -52,7 +52,7 @@ export default function EditClothesForm({ item, onClose }) {
 
       {/* Fält för kategori */}
       <TextInput
-        style={GlobalStyle.input}
+        style={globalStyles.input}
         placeholder="Kategori"
         placeholderTextColor={theme.text}
         value={category}
@@ -61,7 +61,7 @@ export default function EditClothesForm({ item, onClose }) {
 
       {/* Fält för skick */}
       <TextInput
-        style={GlobalStyle.input}
+        style={globalStyles.input}
         placeholder="Skick"
         placeholderTextColor={theme.text}
         value={condition}
@@ -70,7 +70,7 @@ export default function EditClothesForm({ item, onClose }) {
 
       {/* Fält för anteckningar */}
       <TextInput
-        style={[GlobalStyle.input, { height: 80 }]}
+        style={[globalStyles.input, { height: 80 }]}
         placeholder="Anteckningar"
         placeholderTextColor={theme.text}
         value={notes}

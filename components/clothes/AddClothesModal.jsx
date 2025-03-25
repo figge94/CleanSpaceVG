@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, View, Text } from "react-native";
-import { GlobalStyle } from "../../styles/global/GlobalStyle";
+import { globalStyles } from "../../styles/globalStyles";
 import AddClothesForm from "./AddClothesForm";
 
 export default function AddClothesModal({ visible, onClose, theme }) {
@@ -24,7 +24,7 @@ export default function AddClothesModal({ visible, onClose, theme }) {
             padding: 20,
             borderRadius: 10
           }}>
-          <Text style={[GlobalStyle.title, { color: theme.text }]}>
+          <Text style={[globalStyles.title, { color: theme.text }]}>
             Lägg till plagg
           </Text>
           <AddClothesForm onClose={onClose} />
