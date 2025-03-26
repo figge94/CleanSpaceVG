@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { tipsStyles } from "../styles/screensStyles";
+import { tipsStyles } from "../styles/allStyles";
 
 export default function getRandomTips({ tip, theme, fadeAnim, onRefresh }) {
   if (!tip) return null;

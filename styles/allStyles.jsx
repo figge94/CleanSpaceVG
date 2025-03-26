@@ -1,8 +1,8 @@
 // styles/AllStyles.js
-
 import { StyleSheet } from "react-native";
+import { shadow } from "./utilities";
 
-// 🔵 Global Styles
+// Global Styles
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,11 +23,7 @@ export const globalStyles = StyleSheet.create({
     width: "100%",
     padding: 20,
     borderRadius: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 5
+    ...shadow
   },
   title: {
     fontSize: 28,
@@ -49,6 +45,9 @@ export const globalStyles = StyleSheet.create({
   },
   text: {
     fontSize: 14
+  },
+  introText: {
+    fontSize: 18
   },
   errorText: {
     fontSize: 18,
@@ -132,12 +131,8 @@ export const imageStyles = StyleSheet.create({
     top: 0,
     width: "100%",
     height: 200,
-    elevation: 5, // Android
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
     shadowRadius: 5,
-    backgroundColor: "rgba(0,0,0,0.3)"
+    ...shadow
   },
   profileImage: {
     width: 180,
@@ -145,12 +140,10 @@ export const imageStyles = StyleSheet.create({
     marginBottom: 15,
     elevation: 5,
     borderRadius: 90,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
+
     justifyContent: "space-around",
-    alignSelf: "center"
+    alignSelf: "center",
+    ...shadow
   },
   introImage: {
     width: 300,
@@ -163,20 +156,14 @@ export const buttonStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 14,
-    paddingHorizontal: 35,
     borderRadius: 10,
     marginTop: 15,
     width: "90%",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5
+    ...shadow
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: "bold",
     marginLeft: 10,
     textTransform: "uppercase",
     textAlign: "center",
@@ -184,12 +171,9 @@ export const buttonStyles = StyleSheet.create({
   },
   backButton: {
     fontSize: 18,
-    flexDirection: "row",
-    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 8,
-    textAlign: "center",
     color: "white",
     justifyContent: "center",
     textTransform: "uppercase"
@@ -206,7 +190,7 @@ export const buttonStyles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "center",
     backgroundColor: "#007AFF",
-    elevation: 2
+    ...shadow
   },
   toggleButtonText: {
     fontSize: 16,
@@ -215,10 +199,20 @@ export const buttonStyles = StyleSheet.create({
   },
   favoriteButton: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     borderRadius: 10,
     marginBottom: 10,
     alignSelf: "center"
+  },
+  addButton: {
+    position: "absolute",
+    bottom: 80,
+    right: 50,
+    padding: 18,
+    borderRadius: 50,
+
+    backgroundColor: "#222",
+    ...shadow
   }
 });
 
@@ -232,11 +226,9 @@ export const cardStyles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#fff",
     boxShadow: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 5,
-    marginVertical: 8
+
+    marginVertical: 8,
+    ...shadow
   },
   cardContent: {
     flexDirection: "row",
@@ -257,5 +249,189 @@ export const cardStyles = StyleSheet.create({
   },
   arrowIcon: {
     marginLeft: 10
+  }
+});
+
+export const statisticStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "flex-start"
+  },
+  statsWrapper: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    paddingVertical: 10
+  },
+  row: {
+    justifyContent: "space-between",
+    marginBottom: 6
+  },
+  card: {
+    minWidth: "45%",
+    margin: 6,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    ...shadow
+  },
+  statTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 5
+  },
+  statValue: {
+    fontSize: 18,
+    color: "#444"
+  }
+});
+
+export const tipsStyles = StyleSheet.create({
+  categoryScroll: {
+    paddingVertical: 1,
+    paddingHorizontal: 1,
+    flexDirection: "row",
+    alignItems: "flex-start"
+  },
+  categoryButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginHorizontal: 2,
+    backgroundColor: "#ddd",
+    elevation: 1
+  },
+  categoryButtonText: {
+    fontSize: 12,
+    fontWeight: "bold"
+  },
+
+  featuredTipContainer: {
+    marginVertical: 10,
+    padding: 15,
+    borderRadius: 12
+  },
+  featuredTip: {
+    padding: 20,
+    borderRadius: 12,
+
+    alignItems: "center",
+    ...shadow
+  },
+  featuredTipTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center"
+  },
+  featuredTipText: {
+    fontSize: 16,
+    textAlign: "center",
+    opacity: 0.9
+  },
+  shuffleButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 10,
+    elevation: 3
+  },
+  shuffleButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 8,
+    color: "#fff"
+  },
+  tipCard: {
+    padding: 14,
+    marginVertical: 5,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    ...shadow
+  },
+  tipCardExpanded: {
+    minHeight: 100
+  },
+  tipHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  tipTitle: {
+    fontSize: 18,
+    fontWeight: "bold"
+  },
+  tipText: {
+    fontSize: 14,
+    marginTop: 8,
+    opacity: 0.9
+  },
+  content: {
+    paddingBottom: 20
+  }
+});
+
+export const profileStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 60,
+    paddingHorizontal: 20,
+    justifyContent: "center"
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: "bold"
+  },
+  email: {
+    fontSize: 16,
+    opacity: 0.7
+  },
+  settingsContainer: {
+    marginTop: 20,
+    alignItems: "center",
+    width: "100%"
+  },
+  settingsHeader: {
+    fontSize: 24,
+    fontWeight: "bold"
+  }
+});
+
+export const detailStyles = StyleSheet.create({
+  scrollContainer: {
+    paddingBottom: 40,
+    paddingHorizontal: 20
+  },
+  detailsCard: {
+    padding: 14,
+    borderRadius: 10,
+    marginTop: 15,
+    ...shadow
+  },
+  noteContainer: {
+    padding: 12,
+    borderRadius: 10,
+    marginTop: 15,
+    marginBottom: 20,
+    elevation: 3
+  },
+  notes: {
+    fontSize: 14,
+    fontStyle: "italic",
+    opacity: 0.85,
+    flexShrink: 1,
+    padding: 15,
+    borderRadius: 10
+  },
+  centeredContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 5
   }
 });

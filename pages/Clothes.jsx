@@ -1,16 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { globalStyles } from "../styles/allStyles";
+import { buttonStyles, globalStyles } from "../styles/allStyles";
 import { useClothes } from "../data/apiData";
 import {
   AddModal,
   CategoryFilter,
   ClothesList,
-  FavoriteButton,
-  SearchBar
+  FavoriteButton
 } from "../components";
+import SearchBar from "../components/SearchBar";
 
 export default function ClothesScreen({ navigation }) {
   const { theme } = useContext(SettingsContext);
@@ -100,6 +101,12 @@ export default function ClothesScreen({ navigation }) {
         onClose={() => setModalVisible(false)}
         theme={theme}
       />
+
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={buttonStyles.addButton}>
+        <MaterialIcons name="add" size={30} color={theme.buttonText} />
+      </TouchableOpacity>
     </View>
   );
 }

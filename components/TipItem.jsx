@@ -8,7 +8,7 @@ import {
   Platform
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"; // Importerar ikoner
-import { tipsStyles } from "../styles/screensStyles";
+import { tipsStyles } from "../styles/allStyles";
 
 // Aktiverar LayoutAnimation på Android (kräver extra tillåtelse) för att animera komponenter vid uppdatering av layout (t.ex. vid expandering)
 if (

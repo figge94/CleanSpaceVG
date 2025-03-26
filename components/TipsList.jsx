@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import { TipItem } from "../components";
-import { tipsStyles } from "../styles/screensStyles";
+import { tipsStyles } from "../styles/allStyles";
 
 export default function TipsList({
   tips,

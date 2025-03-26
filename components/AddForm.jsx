@@ -6,22 +6,19 @@ import {
   Alert,
   Platform,
   ScrollView,
-  KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker"; // För att välja datum
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SettingsContext } from "../context/SettingsContext"; // Hanterar färgtema
-import { useClothes } from "../data/apiData"; // Egen hook för att kommunicera med API:t
+import { SettingsContext } from "../context/SettingsContext";
+import { useClothes } from "../data/apiData";
 import { globalStyles } from "../styles/allStyles";
-import { Button } from "../components"; // Återanvändbar knappkomponent
+import { Button } from "../components";
 
-// Komponent som innehåller ett formulär för att lägga till ett nytt plagg
-export default function AddClothesForm({ onClose }) {
-  const { createItem, refetch } = useClothes(); // Funktioner för att skapa nytt plagg och hämta datan igen
-  const { theme } = useContext(SettingsContext); // Hämtar aktuellt färgtema
+export default function AddForm({ onClose }) {
+  const { createItem, refetch } = useClothes();
+  const { theme } = useContext(SettingsContext);
 
-  // Tillstånd för formulärets fält
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [condition, setCondition] = useState("");
@@ -30,20 +27,17 @@ export default function AddClothesForm({ onClose }) {
   const [tags, setTags] = useState("");
   const [notes, setNotes] = useState("");
 
-  // Uppdaterar datum när användaren väljer ett nytt
   const onChangeDate = (event, selectedDate) => {
     setShowDatePicker(Platform.OS === "ios");
     if (selectedDate) setLastUsed(selectedDate);
   };
 
-  // Validerar och skickar datan till API:t
   const handleSave = async () => {
     if (!name || !category) {
       Alert.alert("Fel", "Namn och kategori är obligatoriska fält.");
       return;
     }
 
-    // Skapar ett nytt objekt att spara
     const newItem = {
       name,
       category: { main: category },
@@ -54,148 +48,132 @@ export default function AddClothesForm({ onClose }) {
       clearedAt: null
     };
 
-    await createItem(newItem); // Skickar POST-anrop till API:t
-    await refetch(); // Uppdaterar listan med plagg
+    await createItem(newItem);
+    await refetch();
     Alert.alert("Lyckades!", "Plagget har lagts till.");
-    onClose(); // Stänger formuläret
+    onClose();
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <ScrollView>
-        {/* Rubrik för formuläret */}
-        <Text style={[globalStyles.subTitle, { color: theme.text }]}>
-          Plagginformation
-        </Text>
+    <ScrollView>
+      <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
+        Plagginformation
+      </Text>
 
-        {/* Fält för namn på plagget */}
-        <Text style={{ color: theme.text, marginTop: 5 }}>Namn</Text>
-        <TextInput
-          style={globalStyles.input}
-          placeholder="T.ex. svart tröja"
-          placeholderTextColor={globalStyles.text}
-          value={name}
-          onChangeText={setName}
-        />
+      <Text style={{ color: theme.text, marginTop: 5 }}>Namn</Text>
+      <TextInput
+        style={globalStyles.input}
+        placeholder="T.ex. svart tröja"
+        placeholderTextColor={globalStyles.text}
+        value={name}
+        onChangeText={setName}
+      />
 
-        {/* Fält för kategori */}
-        <Text style={{ color: theme.text, marginTop: 5 }}>Kategori</Text>
-        <TextInput
-          style={GlobalStyle.input}
-          placeholder="T.ex. ytterplagg"
-          placeholderTextColor={GlobalStyle.text}
-          value={category}
-          onChangeText={setCategory}
-        />
+      <Text style={{ color: theme.text, marginTop: 5 }}>Kategori</Text>
+      <TextInput
+        style={globalStyles.input}
+        placeholder="T.ex. ytterplagg"
+        placeholderTextColor={globalStyles.text}
+        value={category}
+        onChangeText={setCategory}
+      />
 
-        {/* Fält för skick – presenteras som tre knappar */}
-        <Text style={{ color: theme.text, marginTop: 5 }}>Skick</Text>
-        <View style={{ flexDirection: "row", marginBottom: 10 }}>
-          {["Bra", "Sådär", "Dålig"].map((value) => (
-            <TouchableOpacity
-              key={value}
-              onPress={() => setCondition(value)}
+      <Text style={{ color: theme.text, marginTop: 5 }}>Skick</Text>
+      <View style={{ flexDirection: "row", marginBottom: 10 }}>
+        {["Bra", "Sådär", "Dålig"].map((value) => (
+          <TouchableOpacity
+            key={value}
+            onPress={() => setCondition(value)}
+            style={{
+              backgroundColor:
+                condition === value
+                  ? theme.buttonBackground
+                  : theme.cardBackground,
+              borderColor: theme.borderColor,
+              borderWidth: 1,
+              borderRadius: 20,
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              marginRight: 10
+            }}>
+            <Text
               style={{
-                backgroundColor:
-                  condition === value
-                    ? theme.buttonBackground
-                    : theme.cardBackground,
-                borderColor: theme.borderColor,
-                borderWidth: 1,
-                borderRadius: 20,
-                paddingVertical: 8,
-                paddingHorizontal: 16,
-                marginRight: 10
+                color: condition === value ? "#fff" : theme.text,
+                fontWeight: "bold"
               }}>
-              <Text
-                style={{
-                  color: condition === value ? "#fff" : theme.text,
-                  fontWeight: "bold"
-                }}>
-                {value}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+              {value}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
-        {/* Fält för att välja senaste användningsdatum */}
-        <Text
-          style={{
-            color: theme.text,
-            fontSize: 16,
-            fontWeight: "bold"
-          }}>
-          Senast använd
-        </Text>
+      <Text style={{ color: theme.text, fontSize: 16, fontWeight: "bold" }}>
+        Senast använd
+      </Text>
+      <Button
+        title={
+          lastUsed
+            ? new Date(lastUsed).toLocaleDateString("sv-SE")
+            : "Välj datum"
+        }
+        onPress={() => setShowDatePicker(true)}
+        theme={theme}
+        icon={
+          <MaterialIcons
+            name="calendar-today"
+            size={20}
+            color={theme.buttonText}
+          />
+        }
+        style={{
+          backgroundColor: "#6D4F40",
+          width: "100%",
+          borderRadius: 8,
+          paddingVertical: 12
+        }}
+      />
+      {showDatePicker && (
+        <DateTimePicker
+          value={lastUsed || new Date()}
+          mode="date"
+          display="default"
+          onChange={onChangeDate}
+        />
+      )}
+
+      <Text style={{ color: theme.text, marginTop: 5 }}>Taggar</Text>
+      <TextInput
+        style={globalStyles.input}
+        placeholder="T.ex. vardag, sommar"
+        placeholderTextColor={globalStyles.text}
+        value={tags}
+        onChangeText={setTags}
+      />
+
+      <Text style={{ color: theme.text, marginTop: 5 }}>Anteckningar</Text>
+      <TextInput
+        style={[globalStyles.input, { height: 70 }]}
+        placeholder="T.ex. fått av mamma"
+        placeholderTextColor={globalStyles.text}
+        value={notes}
+        onChangeText={setNotes}
+        multiline
+      />
+
+      <View>
         <Button
-          title={
-            lastUsed
-              ? new Date(lastUsed).toLocaleDateString("sv-SE")
-              : "Välj datum"
-          }
-          onPress={() => setShowDatePicker(true)}
+          title="Lägg till"
+          onPress={handleSave}
           theme={theme}
-          icon={
-            <MaterialIcons
-              name="calendar-today"
-              size={20}
-              color={theme.buttonText}
-            />
-          }
-          style={{
-            backgroundColor: "#6D4F40",
-            width: "100%",
-            borderRadius: 8,
-            paddingVertical: 12
-          }}
+          style={{ width: "100%" }}
         />
-        {showDatePicker && (
-          <DateTimePicker
-            value={lastUsed || new Date()}
-            mode="date"
-            display="default"
-            onChange={onChangeDate}
-          />
-        )}
-
-        {/* Fält för taggar – skrivs in som kommaseparerad text */}
-        <Text style={{ color: theme.text, marginTop: 5 }}>Taggar</Text>
-        <TextInput
-          style={GlobalStyle.input}
-          placeholder="T.ex. vardag, sommar"
-          placeholderTextColor={GlobalStyle.text}
-          value={tags}
-          onChangeText={setTags}
+        <Button
+          title="Avbryt"
+          onPress={onClose}
+          theme={theme}
+          style={{ backgroundColor: "#cc0000", width: "100%" }}
         />
-
-        {/* Fält för valfria anteckningar */}
-        <Text style={{ color: theme.text, marginTop: 5 }}>Anteckningar</Text>
-        <TextInput
-          style={[GlobalStyle.input, { height: 70 }]}
-          placeholder="T.ex. fått av mamma"
-          placeholderTextColor={GlobalStyle.text}
-          value={notes}
-          onChangeText={setNotes}
-          multiline
-        />
-
-        {/* Knappar för att lägga till eller avbryta */}
-        <View>
-          <Button
-            title="Lägg till"
-            onPress={handleSave}
-            theme={theme}
-            style={{ width: "100%" }}
-          />
-          <Button
-            title="Avbryt"
-            onPress={onClose}
-            theme={theme}
-            style={{ backgroundColor: "#cc0000", width: "100%" }}
-          />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </View>
+    </ScrollView>
   );
 }

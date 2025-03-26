@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Text, View, TouchableOpacity, Animated } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
-import { buttonStyles, globalStyles } from "../styles/allStyles";
-import { tipsStyles } from "../styles/screensStyles";
+import { buttonStyles, globalStyles, tipsStyles } from "../styles/allStyles";
 import allTips from "../data/TipsData";
 
 import { FeaturedTip, CategorySelector, TipsList } from "../components";
