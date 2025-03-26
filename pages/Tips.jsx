@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Text, View, TouchableOpacity, Animated } from "react-native";
+import { Text, View, TouchableOpacity, Animated, FlatList } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext";
-import { buttonStyles, globalStyles, tipsStyles } from "../styles/allStyles";
+import { buttonStyles, globalStyles, tipsStyles } from "../styles/styles";
 import allTips from "../data/TipsData";
-
-import { FeaturedTip, CategorySelector, TipsList } from "../components";
+import { TipsList } from "../components";
 
 export default function TipsScreen() {
   const { theme } = useContext(SettingsContext);
@@ -40,14 +40,38 @@ export default function TipsScreen() {
       style={[globalStyles.container, { backgroundColor: theme.background }]}>
       <Text style={[globalStyles.title, { color: theme.text }]}>Tips</Text>
 
-      <View style={tipsStyles.featuredTipContainer}>
-        <FeaturedTip
-          tip={randomTip}
-          theme={theme}
-          fadeAnim={fadeAnim}
-          onRefresh={getRandomTip}
-        />
-      </View>
+      {randomTip && (
+        <Animated.View
+          style={[
+            tipsStyles.featuredTip,
+            { backgroundColor: theme.cardBackground, opacity: fadeAnim }
+          ]}>
+          <View>
+            <Text style={[tipsStyles.featuredTipTitle, { color: theme.text }]}>
+              {randomTip.title}
+            </Text>
+            <Text style={[tipsStyles.featuredTipText, { color: theme.text }]}>
+              {randomTip.text}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={getRandomTip}
+            style={[
+              tipsStyles.shuffleButton,
+              { backgroundColor: theme.buttonBackground }
+            ]}>
+            <MaterialIcons name="refresh" size={22} color={theme.buttonText} />
+            <Text
+              style={[
+                tipsStyles.shuffleButtonText,
+                { color: theme.buttonText }
+              ]}>
+              Nytt tips
+            </Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
 
       <TouchableOpacity
         style={[
@@ -66,12 +90,35 @@ export default function TipsScreen() {
 
       {showTips && (
         <>
-          <CategorySelector
-            categories={categories}
-            selected={selectedCategory}
-            onSelect={setSelectedCategory}
-            theme={theme}
+          <FlatList
+            data={categories}
+            horizontal
+            keyExtractor={(item) => item}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={tipsStyles.categoryScroll}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => setSelectedCategory(item)}
+                style={[
+                  tipsStyles.categoryButton,
+                  {
+                    backgroundColor:
+                      selectedCategory === item
+                        ? theme.activeButtonBackground
+                        : theme.notActiveButtonBackground
+                  }
+                ]}>
+                <Text
+                  style={[
+                    tipsStyles.categoryButtonText,
+                    { color: theme.buttonText }
+                  ]}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            )}
           />
+
           {selectedCategory && (
             <TipsList
               tips={filteredTips}

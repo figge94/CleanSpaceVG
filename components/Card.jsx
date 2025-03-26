@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react"; // Importerar useRef för att skapa en referens till en variabel
 import { View, Text, TouchableOpacity, Animated } from "react-native"; // Importerar komponenter från React Native
 import { MaterialIcons, EvilIcons } from "@expo/vector-icons"; // Importerar ikoner
-import { cardStyles } from "../styles/allStyles"; // Importerar styling för kort (CardStyle)
+import { cardStyles } from "../styles/styles"; // Importerar styling för kort (CardStyle)
 
 // Card – visar ett kort med information om ett plagg
 // Den visar om ett plagg är markerat som favorit, visar grundläggande info och navigerar vidare vid tryck.

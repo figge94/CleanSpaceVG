@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles, imageStyles, buttonStyles } from "../styles/allStyles";
+import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
 
 SplashScreen.preventAutoHideAsync();

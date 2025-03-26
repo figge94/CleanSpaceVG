@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Används för att spara att introduktionen är genomförd
 import Onboarding from "react-native-onboarding-swiper"; // Paket för att skapa snygga introduktionsskärmar
-import { buttonStyles, globalStyles, imageStyles } from "../styles/allStyles";
+import { buttonStyles, globalStyles, imageStyles } from "../styles/styles";
+import { Button } from "../components";
 
 // IntroScreen - visas första gången man öppnar appen
 export default function IntroScreen({ navigation }) {
@@ -35,7 +36,7 @@ export default function IntroScreen({ navigation }) {
       showDone={false}
       containerStyles={{ paddingBottom: 50 }} // Extra padding längst ner
       titleStyles={globalStyles.title} // Stil för rubriker
-      subTitleStyles={styles.subtitle} // Stil för underrubriker
+      subTitleStyles={globalStyles.text} // Stil för underrubriker
       bottomBarHighlight={false}
       pages={[
         {
@@ -76,29 +77,12 @@ export default function IntroScreen({ navigation }) {
           ),
           title: "Börja nu!",
           subtitle: (
-            <TouchableOpacity style={styles.button} onPress={handleFinishIntro}>
-              <Text style={buttonStyles.buttonText}>Kom igång</Text>
-            </TouchableOpacity>
+            <Button onPress={handleFinishIntro} style={buttonStyles.button}>
+              Kom igång
+            </Button>
           )
         }
       ]}
     />
   );
 }
-
-// Stilar för rubriker, text och knapp i introduktionen
-const styles = StyleSheet.create({
-  subtitle: {
-    fontSize: 18,
-    color: "#444",
-    textAlign: "center",
-    paddingHorizontal: 30
-  },
-  button: {
-    backgroundColor: "#A47864",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    alignSelf: "center"
-  }
-});

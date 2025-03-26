@@ -1,6 +1,24 @@
 // styles/AllStyles.js
 import { StyleSheet } from "react-native";
-import { shadow } from "./utilities";
+import {
+  shadow,
+  titleText,
+  subTitleText,
+  sectionTitleText,
+  centeredText,
+  baseButton,
+  buttonText,
+  cardBase,
+  cardTitle,
+  cardText,
+  imageShadow,
+  center,
+  circularImage,
+  noteText,
+  rounded,
+  tipText,
+  tipTitleText
+} from "./utilities";
 
 // Global Styles
 export const globalStyles = StyleSheet.create({
@@ -13,7 +31,7 @@ export const globalStyles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    textAlign: "center",
+    ...centeredText,
     marginBottom: 25,
     paddingHorizontal: 20,
     opacity: 0.8,
@@ -26,43 +44,29 @@ export const globalStyles = StyleSheet.create({
     ...shadow
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 15,
-    textAlign: "center"
+    ...titleText,
+    marginBottom: 15
   },
   subTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
+    ...subTitleText,
     marginTop: 15,
-    marginBottom: 10,
-    textAlign: "center"
+    marginBottom: 10
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
+    ...sectionTitleText,
     marginBottom: 4
   },
   text: {
-    fontSize: 14
-  },
-  introText: {
-    fontSize: 18
-  },
-  errorText: {
-    fontSize: 18,
-    color: "red",
-    textAlign: "center"
+    fontSize: 16
   },
   username: {
     fontSize: 24,
     fontWeight: "bold",
-    textAlign: "center"
+    ...centeredText
   },
   email: {
     fontSize: 16,
-    opacity: 0.7,
-    textAlign: "center"
+    ...centeredText
   },
   contentContainer: {
     alignItems: "center",
@@ -85,6 +89,53 @@ export const globalStyles = StyleSheet.create({
   settingsHeader: {
     fontSize: 24,
     fontWeight: "bold"
+  }
+});
+
+export const buttonStyles = StyleSheet.create({
+  button: {
+    ...baseButton
+  },
+  buttonText: {
+    ...buttonText,
+    marginLeft: 10,
+    color: "white"
+  },
+  backButton: {
+    ...buttonText,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    color: "white"
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center"
+  },
+  toggleButton: {
+    ...baseButton,
+    paddingHorizontal: 20,
+    alignSelf: "stretch"
+  },
+  toggleButtonText: {
+    ...buttonText,
+    color: "#fff"
+  },
+  favoriteButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignSelf: "center"
+  },
+  addButton: {
+    position: "absolute",
+    bottom: 80,
+    right: 50,
+    padding: 18,
+    borderRadius: 50,
+    backgroundColor: "#222",
+    ...shadow
   }
 });
 
@@ -111,36 +162,30 @@ export const tagStyles = StyleSheet.create({
 export const imageStyles = StyleSheet.create({
   headerContainer: {
     width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 250
+    marginBottom: 250,
+    ...center
   },
   wardrobeImage: {
     position: "absolute",
     top: 0,
     height: 200,
     width: "100%",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5
+    resizeMode: "cover",
+    ...imageShadow
   },
   shadowContainer: {
     position: "absolute",
     top: 0,
     width: "100%",
     height: 200,
-    shadowRadius: 5,
-    ...shadow
+    backgroundColor: "rgba(0,0,0,0.3)",
+    ...imageShadow
   },
   profileImage: {
-    width: 180,
-    height: 180,
+    ...circularImage(),
     marginBottom: 15,
     elevation: 5,
     borderRadius: 90,
-
     justifyContent: "space-around",
     alignSelf: "center",
     ...shadow
@@ -151,84 +196,9 @@ export const imageStyles = StyleSheet.create({
   }
 });
 
-export const buttonStyles = StyleSheet.create({
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 14,
-    borderRadius: 10,
-    marginTop: 15,
-    width: "90%",
-    justifyContent: "center",
-    ...shadow
-  },
-  buttonText: {
-    fontSize: 18,
-    marginLeft: 10,
-    textTransform: "uppercase",
-    textAlign: "center",
-    color: "white"
-  },
-  backButton: {
-    fontSize: 18,
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-    color: "white",
-    justifyContent: "center",
-    textTransform: "uppercase"
-  },
-  buttonContainer: {
-    width: "100%",
-    alignItems: "center"
-  },
-  toggleButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    marginVertical: 10,
-    alignSelf: "stretch",
-    alignItems: "center",
-    backgroundColor: "#007AFF",
-    ...shadow
-  },
-  toggleButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#fff"
-  },
-  favoriteButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignSelf: "center"
-  },
-  addButton: {
-    position: "absolute",
-    bottom: 80,
-    right: 50,
-    padding: 18,
-    borderRadius: 50,
-
-    backgroundColor: "#222",
-    ...shadow
-  }
-});
-
 export const cardStyles = StyleSheet.create({
   card: {
-    width: "100%",
-    padding: 16,
-    borderRadius: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    boxShadow: "#000",
-
-    marginVertical: 8,
-    ...shadow
+    ...cardBase
   },
   cardContent: {
     flexDirection: "row",
@@ -237,15 +207,10 @@ export const cardStyles = StyleSheet.create({
     flex: 1
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 4,
-    textAlign: "left"
+    ...cardTitle
   },
   text: {
-    fontSize: 16,
-    opacity: 0.8,
-    textAlign: "left"
+    ...cardText
   },
   arrowIcon: {
     marginLeft: 10
@@ -280,8 +245,9 @@ export const statisticStyles = StyleSheet.create({
   statTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 5
+
+    marginBottom: 5,
+    ...centeredText
   },
   statValue: {
     fontSize: 18,
@@ -299,7 +265,7 @@ export const tipsStyles = StyleSheet.create({
   categoryButton: {
     paddingVertical: 8,
     paddingHorizontal: 10,
-    borderRadius: 20,
+    ...rounded(20),
     marginHorizontal: 2,
     backgroundColor: "#ddd",
     elevation: 1
@@ -312,32 +278,27 @@ export const tipsStyles = StyleSheet.create({
   featuredTipContainer: {
     marginVertical: 10,
     padding: 15,
-    borderRadius: 12
+    ...rounded()
   },
   featuredTip: {
     padding: 20,
-    borderRadius: 12,
+    ...rounded(),
 
     alignItems: "center",
     ...shadow
   },
   featuredTipTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 8,
-    textAlign: "center"
+    ...tipTitleText
   },
   featuredTipText: {
-    fontSize: 16,
-    textAlign: "center",
-    opacity: 0.9
+    ...tipText
   },
   shuffleButton: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
+    ...rounded(),
     marginTop: 10,
     elevation: 3
   },
@@ -350,7 +311,7 @@ export const tipsStyles = StyleSheet.create({
   tipCard: {
     padding: 14,
     marginVertical: 5,
-    borderRadius: 10,
+    ...rounded(),
     backgroundColor: "#fff",
     ...shadow
   },
@@ -410,28 +371,25 @@ export const detailStyles = StyleSheet.create({
   },
   detailsCard: {
     padding: 14,
-    borderRadius: 10,
     marginTop: 15,
+    ...rounded(),
     ...shadow
   },
   noteContainer: {
     padding: 12,
-    borderRadius: 10,
     marginTop: 15,
     marginBottom: 20,
-    elevation: 3
+    ...rounded(),
+    ...shadow
   },
   notes: {
-    fontSize: 14,
-    fontStyle: "italic",
-    opacity: 0.85,
+    ...noteText,
     flexShrink: 1,
     padding: 15,
-    borderRadius: 10
+    ...rounded()
   },
   centeredContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    ...center,
     marginVertical: 5
   }
 });

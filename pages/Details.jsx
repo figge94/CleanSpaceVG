@@ -13,7 +13,7 @@ import {
   detailStyles,
   tagStyles,
   buttonStyles
-} from "../styles/allStyles";
+} from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../context/useDeleteConfirmation";

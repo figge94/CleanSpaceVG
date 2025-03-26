@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Text, View, Image, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext"; // Hanterar tema och mörkt/ljust läge
-import { buttonStyles, globalStyles, imageStyles } from "../styles/allStyles"; // Gemensamma bildstilar
+import { buttonStyles, globalStyles, imageStyles } from "../styles/styles"; // Gemensamma bildstilar
 import { Button } from "../components";
 
 // Skärm som visar användarens profilinformation samt inställningar

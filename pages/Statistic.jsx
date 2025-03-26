@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext, useMemo } from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SettingsContext } from "../context/SettingsContext";
-import { globalStyles, statisticStyles, cardStyles } from "../styles/allStyles";
+import { globalStyles, statisticStyles, cardStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
+import { errorText } from "../styles/utilities";
 
 export default function StatisticsScreen() {
   const { theme } = useContext(SettingsContext);
@@ -49,9 +50,7 @@ export default function StatisticsScreen() {
     return (
       <View
         style={[globalStyles.container, { backgroundColor: theme.background }]}>
-        <Text style={[statisticStyles.errorText, { color: theme.text }]}>
-          {error}
-        </Text>
+        <Text style={[errorText, { color: theme.text }]}>{error}</Text>
       </View>
     );
   }

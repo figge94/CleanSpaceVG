@@ -1,24 +1,26 @@
 import React from "react";
-import { Pressable, Text } from "react-native";
-import { buttonStyles } from "../styles/allStyles";
+import { Pressable, Text, View } from "react-native";
+import { buttonStyles } from "../styles/styles";
 
 // En återanvändbar knappkomponent som anpassar sig efter valt tema och kan visa en ikon
 export default function Button({ title, onPress, icon, theme, style }) {
   return (
-    // Pressable används istället för TouchableOpacity för att ge bättre kontroll över tryckeffekt
     <Pressable
       style={({ pressed }) => [
-        buttonStyles.button, // Basstil för knappen
-        { backgroundColor: theme.buttonBackground, opacity: pressed ? 0.7 : 1 }, // Temafärg och tryckeffekt
-        style // Tillåter ytterligare anpassning av stil via props
+        buttonStyles.button,
+        {
+          backgroundColor: theme.buttonBackground,
+          opacity: pressed ? 0.7 : 1
+        },
+        style
       ]}
-      onPress={onPress} // Anropas när knappen trycks
-    >
-      {/* Visar en ikon om en skickas in */}
-      {icon}
-      <Text style={[buttonStyles.buttonText, { color: theme.buttonText }]}>
-        {title}
-      </Text>
+      onPress={onPress}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        {icon && <View style={{ marginRight: 8 }}>{icon}</View>}
+        <Text style={[buttonStyles.buttonText, { color: "white" }]}>
+          {title}
+        </Text>
+      </View>
     </Pressable>
   );
 }

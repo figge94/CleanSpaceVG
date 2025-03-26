@@ -1,16 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { SettingsContext } from "../context/SettingsContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { buttonStyles, globalStyles } from "../styles/allStyles";
-import { useClothes } from "../data/apiData";
 import {
-  AddModal,
-  CategoryFilter,
-  ClothesList,
-  FavoriteButton
-} from "../components";
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+  Switch
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { SettingsContext } from "../context/SettingsContext";
+import { useClothes } from "../data/apiData";
+import { buttonStyles, globalStyles } from "../styles/styles";
+import { AddModal, Card } from "../components";
 import SearchBar from "../components/SearchBar";
 
 export default function ClothesScreen({ navigation }) {
@@ -40,7 +43,7 @@ export default function ClothesScreen({ navigation }) {
   const toggleFavorite = async (itemId) => {
     const newFavorites = {
       ...favorites,
-      [itemId]: !favorites[itemId]
+      [itemId]: !favorites[item._id]
     };
     setFavorites(newFavorites);
     try {
@@ -71,30 +74,90 @@ export default function ClothesScreen({ navigation }) {
         Min garderob
       </Text>
 
-      <CategoryFilter
-        categories={categories}
-        selected={selectedCategory}
-        onSelect={setSelectedCategory}
-        theme={theme}
-      />
+      {/* CategoryFilter inbakad */}
+      <View style={{ marginBottom: 15, paddingHorizontal: 10 }}>
+        <FlatList
+          data={categories}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item}
+          contentContainerStyle={{ paddingVertical: 10 }}
+          renderItem={({ item }) => {
+            const isSelected = selectedCategory === item;
+            return (
+              <TouchableOpacity
+                onPress={() => setSelectedCategory(item)}
+                style={{
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  marginHorizontal: 3,
+                  borderRadius: 8,
+                  backgroundColor: isSelected
+                    ? theme.buttonBackground
+                    : theme.cardBackground,
+                  borderWidth: 1,
+                  borderColor: theme.borderColor,
+                  elevation: isSelected ? 4 : 0
+                }}>
+                <Text
+                  style={{
+                    color: isSelected ? "#fff" : theme.text,
+                    fontWeight: "bold",
+                    fontSize: 16,
+                    textAlign: "center"
+                  }}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
 
-      <FavoriteButton
-        theme={theme}
-        value={showOnlyFavorites}
-        onToggle={() => setShowOnlyFavorites(!showOnlyFavorites)}
-      />
+      {/* Inbakad FavoriteButton */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 10
+        }}>
+        <Text style={{ color: theme.text, marginRight: 10 }}>
+          Visa endast favoriter
+        </Text>
+        <Switch
+          value={showOnlyFavorites}
+          onValueChange={() => setShowOnlyFavorites(!showOnlyFavorites)}
+          trackColor={{ false: "#ccc", true: theme.buttonBackground }}
+          thumbColor={theme.buttonText}
+        />
+      </View>
 
       <SearchBar value={searchQuery} onChange={setSearchQuery} theme={theme} />
 
-      <ClothesList
-        isLoading={isLoading}
-        error={error}
-        data={filteredData}
-        navigation={navigation}
-        theme={theme}
-        onToggleFavorite={toggleFavorite}
-        favorites={favorites}
-      />
+      <View style={{ flex: 1, marginBottom: 20 }}>
+        {isLoading ? (
+          <ActivityIndicator size="large" color={theme.text} />
+        ) : error ? (
+          <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
+        ) : (
+          <FlatList
+            data={filteredData}
+            keyExtractor={(item) => item._id}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Card
+                key={item._id}
+                item={item}
+                theme={theme}
+                onPress={() => navigation.navigate("Details", { item })}
+                onToggleFavorite={() => toggleFavorite(item._id)}
+                isFavorite={favorites[item._id]}
+              />
+            )}
+          />
+        )}
+      </View>
 
       <AddModal
         visible={modalVisible}
