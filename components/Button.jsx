@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { buttonStyles } from "../styles/styles";
+import { SettingsContext } from "../context/SettingsContext";
 
-// En återanvändbar knappkomponent som anpassar sig efter valt tema och kan visa en ikon
-export default function Button({ title, onPress, icon, theme, style }) {
+export default function Button({ title, onPress, icon, style, disabled }) {
+  const { theme } = useContext(SettingsContext);
+
   return (
     <Pressable
+      onPress={onPress}
+      disabled={disabled}
       style={({ pressed }) => [
         buttonStyles.button,
         {
-          backgroundColor: theme.buttonBackground,
+          backgroundColor: disabled ? "#999" : theme.buttonBackground,
           opacity: pressed ? 0.7 : 1
         },
         style
-      ]}
-      onPress={onPress}>
+      ]}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         {icon && <View style={{ marginRight: 8 }}>{icon}</View>}
-        <Text style={[buttonStyles.buttonText, { color: "white" }]}>
+        <Text style={[buttonStyles.buttonText, { color: theme.buttonText }]}>
           {title}
         </Text>
       </View>

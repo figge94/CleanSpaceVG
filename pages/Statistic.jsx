@@ -1,28 +1,16 @@
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SettingsContext } from "../context/SettingsContext";
 import { globalStyles, statisticStyles, cardStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { errorText } from "../styles/utilities";
+import useFavorites from "../hooks/useFavorites";
 
 export default function StatisticsScreen() {
   const { theme } = useContext(SettingsContext);
   const { data = [], isLoading, error } = useClothes();
 
-  const [favorites, setFavorites] = useState({});
-
-  useEffect(() => {
-    const loadFavorites = async () => {
-      try {
-        const saved = await AsyncStorage.getItem("favorites");
-        if (saved) setFavorites(JSON.parse(saved));
-      } catch (e) {
-        console.error("Kunde inte ladda favoriter", e);
-      }
-    };
-    loadFavorites();
-  }, []);
+  const { getFavoriteCount } = useFavorites(); // 👈 Endast detta behövs
 
   const stats = useMemo(() => {
     return {
@@ -103,7 +91,7 @@ export default function StatisticsScreen() {
                 Favoritplagg
               </Text>
               <Text style={[statisticStyles.statValue, { color: theme.text }]}>
-                {Object.values(favorites).filter(Boolean).length}
+                {getFavoriteCount()} {/* 👈 Använd hooken här */}
               </Text>
             </View>
           </View>

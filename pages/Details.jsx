@@ -16,7 +16,7 @@ import {
 } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { Button, EditModal } from "../components";
-import useDeleteConfirmation from "../context/useDeleteConfirmation";
+import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
 
 export default function DetailsScreen({ route, navigation }) {
   const { theme } = useContext(SettingsContext);
@@ -24,7 +24,9 @@ export default function DetailsScreen({ route, navigation }) {
   const item = route.params?.item;
   const [modalVisible, setModalVisible] = useState(false);
 
-  const confirmDelete = useDeleteConfirmation(deleteItem, navigation);
+  const confirmDelete = useDeleteConfirmation(deleteItem, () =>
+    navigation.goBack()
+  );
 
   useEffect(() => {
     const backAction = () => {
@@ -152,7 +154,13 @@ export default function DetailsScreen({ route, navigation }) {
 
           <Button
             title="Ta bort"
-            onPress={() => confirmDelete(item._id)}
+            onPress={() =>
+              confirmDelete(item._id, {
+                title: "Radera plagg",
+                message: `Vill du verkligen ta bort "${item.name}"?`,
+                successMessage: `"${item.name}" har tagits bort.`
+              })
+            }
             theme={{
               ...theme,
               buttonBackground: "#C62828",

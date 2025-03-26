@@ -8,13 +8,13 @@ import {
   Switch
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { SettingsContext } from "../context/SettingsContext";
 import { useClothes } from "../data/apiData";
 import { buttonStyles, globalStyles } from "../styles/styles";
 import { AddModal, Card } from "../components";
 import SearchBar from "../components/SearchBar";
+import useFavorites from "../hooks/useFavorites";
 
 export default function ClothesScreen({ navigation }) {
   const { theme } = useContext(SettingsContext);
@@ -22,8 +22,8 @@ export default function ClothesScreen({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [favorites, setFavorites] = useState({});
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const { favorites, toggleFavorite } = useFavorites();
 
   const categories = [
     "Alla",
@@ -39,33 +39,6 @@ export default function ClothesScreen({ navigation }) {
     const isFavorite = favorites[item._id];
     return matchKategori && matchSökning && (!showOnlyFavorites || isFavorite);
   });
-
-  const toggleFavorite = async (itemId) => {
-    const newFavorites = {
-      ...favorites,
-      [itemId]: !favorites[item._id]
-    };
-    setFavorites(newFavorites);
-    try {
-      await AsyncStorage.setItem("favorites", JSON.stringify(newFavorites));
-    } catch (e) {
-      console.error("Kunde inte spara favoriter", e);
-    }
-  };
-
-  useEffect(() => {
-    const loadFavorites = async () => {
-      try {
-        const savedFavorites = await AsyncStorage.getItem("favorites");
-        if (savedFavorites) {
-          setFavorites(JSON.parse(savedFavorites));
-        }
-      } catch (e) {
-        console.error("Kunde inte ladda favoriter", e);
-      }
-    };
-    loadFavorites();
-  }, []);
 
   return (
     <View
