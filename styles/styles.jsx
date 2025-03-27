@@ -294,6 +294,19 @@ export const globalStyles = StyleSheet.create({
   }
 });
 
+export const theme = StyleSheet.create({
+  background: "#ece3df",
+  text: "#000",
+  cardBackground: "#fff",
+  buttonBackground: "#B28C7B",
+  buttonText: "#fff",
+  borderColor: "#d9c7bf",
+  headerText: "#fff",
+  activeButtonBackground: "#A47864",
+  notActiveButtonBackground: "#d9c7bf",
+  tagBackground: "#AC9C95"
+});
+
 export const buttonStyles = StyleSheet.create({
   button: {
     ...baseButton

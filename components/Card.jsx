@@ -5,11 +5,20 @@ import { cardStyles } from "../styles/styles";
 import useFavorites from "../hooks/useFavorites";
 import useAnimatedFavorite from "../hooks/useAnimatedFavorite";
 import useFormattedDates from "../hooks/useFormattedDates";
+import { theme } from "../styles/styles";
 
 export default function Card({ item, onPress }) {
-  const { isFavorite } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites(); // Hämta favorites och toggleFavorite
   const { scaleAnim, handleFavoritePress } = useAnimatedFavorite(item._id);
   const { lastUsed } = useFormattedDates(item);
+
+  // Kontrollera om objektet är favoriter baserat på favorites
+  const isFavorite = favorites[item._id];
+
+  const handleFavoriteToggle = () => {
+    handleFavoritePress(); // Animering
+    toggleFavorite(item._id); // Toggla favorit
+  };
 
   return (
     <TouchableOpacity
@@ -19,13 +28,13 @@ export default function Card({ item, onPress }) {
       <View style={cardStyles.cardContent}>
         {/* Favorithjärta */}
         <TouchableOpacity
-          onPress={handleFavoritePress}
+          onPress={handleFavoriteToggle} // Hantera klick för att toggla favoritstatus
           style={{ marginRight: 10 }}>
           <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
             <MaterialIcons
-              name={isFavorite(item._id) ? "favorite" : "favorite-border"}
+              name={isFavorite ? "favorite" : "favorite-border"}
               size={24}
-              color={isFavorite(item._id) ? "red" : theme.text}
+              color={isFavorite ? "red" : theme.text} // Färga om objektet är favorit
             />
           </Animated.View>
         </TouchableOpacity>

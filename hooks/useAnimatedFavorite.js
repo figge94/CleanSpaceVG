@@ -12,11 +12,12 @@ export default function useAnimatedFavorite(itemId) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handleFavoritePress = () => {
+    // Skala upp och tillbaka animation för favorit-tryck
     Animated.sequence([
       Animated.timing(scaleAnim, {
         toValue: 1.3,
         duration: 150,
-        useNativeDriver: true
+        useNativeDriver: true // Bra att sätta på true för att optimera animationen
       }),
       Animated.timing(scaleAnim, {
         toValue: 1,
@@ -25,6 +26,7 @@ export default function useAnimatedFavorite(itemId) {
       })
     ]).start();
 
+    // Toggla favoritstatus
     toggleFavorite(itemId);
   };
 

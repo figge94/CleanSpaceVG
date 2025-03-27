@@ -12,6 +12,7 @@ import {
 
 import { globalStyles } from "../styles/styles";
 import useEditClothingItem from "../hooks/useEditClothingItem";
+import { theme } from "../styles/styles";
 
 export default function EditModal({ visible, onClose, item }) {
   const {

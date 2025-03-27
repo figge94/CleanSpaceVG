@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
+import { buttonText } from "../styles/utilities";
 
 export default function HomeScreen({ navigation }) {
   const goToIntro = async () => {
@@ -16,7 +17,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: globalStyles.background }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={imageStyles.headerContainer}>
           <Image
@@ -26,7 +27,8 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <View style={globalStyles.contentContainer}>
-          <Text style={[globalStyles.description, { color: theme.text }]}>
+          <Text
+            style={[globalStyles.description, { color: globalStyles.text }]}>
             <Text style={globalStyles.title}>
               Rensa enkelt, organisera smart
             </Text>
@@ -42,10 +44,9 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons
                   name="wardrobe"
                   size={26}
-                  color={theme.buttonText}
+                  color={buttonText}
                 />
               }
-              theme={theme}
             />
 
             <Button
@@ -55,21 +56,19 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons
                   name="chart-box"
                   size={26}
-                  color={theme.buttonText}
+                  color={buttonText}
                 />
               }
-              theme={theme}
             />
 
             <Button
               title="Visa intro igen"
               onPress={goToIntro}
-              theme={theme}
               icon={
                 <MaterialCommunityIcons
                   name="restart"
                   size={26}
-                  color={theme.buttonText}
+                  color={buttonText}
                 />
               }
             />

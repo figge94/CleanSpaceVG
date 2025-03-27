@@ -1,7 +1,12 @@
 import React from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
 
-import { globalStyles, statisticStyles, cardStyles } from "../styles/styles";
+import {
+  globalStyles,
+  statisticStyles,
+  cardStyles,
+  theme
+} from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { errorText } from "../styles/utilities";
 import useFavorites from "../hooks/useFavorites";

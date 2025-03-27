@@ -16,6 +16,7 @@ import { globalStyles } from "../styles/styles";
 import { Button } from "../components";
 import useAddClothingItem from "../hooks/useAddClothingItem";
 import { formatDate } from "../utils/dateUtils";
+import { theme } from "../styles/styles";
 
 export default function AddModal({ visible, onClose }) {
   const {

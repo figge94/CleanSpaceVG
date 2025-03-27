@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput } from "react-native";
 
-import { globalStyles } from "../styles/styles";
+import { globalStyles, theme } from "../styles/styles";
 
 export default function SearchBar({ value, onChange }) {
   return (

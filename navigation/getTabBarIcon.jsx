@@ -1,4 +1,5 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { theme } from "../styles/styles";
 
 // getTabBarIcon - Dynamiskt sätta rätt ikon beroende på vilken flik och om den är fokuserad
 export default function getTabBarIcon(routeName, focused, color, size) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import { buttonStyles } from "../styles/styles";
+import { buttonStyles, theme } from "../styles/styles";
 
 export default function Button({ title, onPress, icon, style, disabled }) {
   return (
@@ -17,7 +17,8 @@ export default function Button({ title, onPress, icon, style, disabled }) {
       ]}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         {icon && <View style={{ marginRight: 8 }}>{icon}</View>}
-        <Text style={[buttonStyles.buttonText, { color: theme.buttonText }]}>
+        <Text
+          style={[buttonStyles.buttonText, { color: buttonStyles.buttonText }]}>
           {title}
         </Text>
       </View>

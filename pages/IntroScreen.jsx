@@ -5,6 +5,7 @@ import Onboarding from "react-native-onboarding-swiper";
 
 import { buttonStyles, globalStyles, imageStyles } from "../styles/styles";
 import { Button } from "../components";
+import { theme } from "../styles/styles";
 
 export default function IntroScreen({ navigation }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -29,8 +30,8 @@ export default function IntroScreen({ navigation }) {
       showNext={true}
       bottomBarHighlight={false}
       containerStyles={globalStyles.introContainer}
-      titleStyles={[globalStyles.title, { color: theme.text }]}
-      subTitleStyles={[globalStyles.text, { color: theme.text }]}
+      titleStyles={[globalStyles.title, { color: theme.text }]} // Behåll som array eftersom den blandar styles
+      subTitleStyles={{ ...globalStyles.text, color: theme.text }} // Skicka som ett objekt här
       pages={[
         {
           backgroundColor: theme.background,

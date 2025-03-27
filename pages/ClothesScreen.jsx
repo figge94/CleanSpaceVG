@@ -10,7 +10,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { useClothes } from "../data/apiData";
-import { buttonStyles, globalStyles } from "../styles/styles";
+import { buttonStyles, globalStyles, theme } from "../styles/styles";
 import { AddModal, Card } from "../components";
 import SearchBar from "../components/SearchBar";
 import useFilteredClothes from "../hooks/useFilteredClothes";
@@ -116,6 +116,8 @@ export default function ClothesScreen({ navigation }) {
                 item={item}
                 theme={theme}
                 onPress={() => navigation.navigate("Details", { item })}
+                onToggleFavorite={() => toggleFavorite(item._id)} // Anropar toggleFavorite här
+                isFavorite={favorites[item._id]} // Skickar favoritstatus
               />
             )}
           />

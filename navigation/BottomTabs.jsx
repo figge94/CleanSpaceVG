@@ -8,6 +8,7 @@ import HomeScreen from "../pages/HomeScreen";
 import ClothesScreen from "../pages/ClothesScreen";
 import TipsScreen from "../pages/TipsScreen";
 import ProfileScreen from "../pages/ProfileScreen";
+import { theme } from "../styles/styles";
 
 const Tab = createBottomTabNavigator();
 

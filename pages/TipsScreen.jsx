@@ -6,6 +6,7 @@ import { buttonStyles, globalStyles, tipsStyles } from "../styles/styles";
 import { TipsList } from "../components";
 import useRandomTip from "../hooks/useRandomTip";
 import useTipFilter from "../hooks/useTipFilter";
+import { theme } from "../styles/styles";
 
 export default function TipsScreen() {
   const [expandedTipId, setExpandedTipId] = useState(null);

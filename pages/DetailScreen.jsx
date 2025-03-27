@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { globalStyles, tagStyles, buttonStyles } from "../styles/styles";
+import { globalStyles, theme, tagStyles, buttonStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";

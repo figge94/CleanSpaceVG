@@ -11,6 +11,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { globalStyles } from "../styles/styles";
+import { theme } from "../styles/styles";
 
 // Aktivera animation på Android
 if (
