@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import useAppTheme from "../hooks/useAppTheme"; // Använd useAppTheme istället för useSettings
+import useAppTheme from "../hooks/useAppTheme";
 import { useClothes } from "../data/apiData";
 import { buttonStyles, globalStyles } from "../styles/styles";
 import { AddModal, Card } from "../components";

@@ -1,7 +1,6 @@
-// useAppTheme.js
 import { useState, useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { lightTheme, darkTheme } from "../styles/theme"; // Importera temaobjekten
+import { lightTheme, darkTheme } from "../styles/theme"; // Importera färgteman
 
 export default function useAppTheme() {
   const systemColorScheme = useColorScheme(); // Hämta systemets nuvarande tema

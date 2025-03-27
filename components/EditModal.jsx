@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import useAppTheme from "../hooks/useAppTheme"; // Använd useAppTheme istället för useSettings
+import useAppTheme from "../hooks/useAppTheme";
 import { globalStyles } from "../styles/styles";
 import useEditClothingItem from "../hooks/useEditClothingItem";
 

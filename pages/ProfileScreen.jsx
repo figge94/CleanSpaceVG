@@ -41,8 +41,8 @@ export default function ProfileScreen({ navigation }) {
         <Switch
           value={isDarkMode}
           onValueChange={toggleDarkMode}
-          trackColor={{ false: "#d9c7bf", true: "#A86D5D" }}
-          thumbColor={isDarkMode ? "#ffffff" : "#000000"}
+          trackColor={{ false: "#ccc", true: theme.buttonBackground }}
+          thumbColor={theme.buttonText}
         />
       </View>
     </View>
