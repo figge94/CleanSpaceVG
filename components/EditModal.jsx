@@ -111,29 +111,6 @@ export default function EditModal({ visible, onClose, item }) {
 
               {/* Spara och Avbryt knappar */}
               <TouchableOpacity
-<<<<<<< HEAD
-                style={{
-                  backgroundColor: theme.buttonBackground,
-                  padding: 12,
-                  borderRadius: 10,
-                  alignItems: "center",
-                  marginTop: 10
-                }}
-                onPress={handleSave}
-                disabled={isSaving}>
-                {isSaving ? (
-                  <ActivityIndicator size="small" color={theme.buttonText} />
-                ) : (
-                  <Text
-                    style={{
-                      color: theme.buttonText,
-                      fontSize: 16,
-                      fontWeight: "bold"
-                    }}>
-                    Spara ändringar
-                  </Text>
-                )}
-=======
                 style={[
                   globalStyles.editModal.button,
                   { backgroundColor: theme.buttonBackground }
@@ -146,7 +123,6 @@ export default function EditModal({ visible, onClose, item }) {
                   ]}>
                   Spara ändringar
                 </Text>
->>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
               </TouchableOpacity>
 
               <TouchableOpacity
