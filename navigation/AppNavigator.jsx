@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as SplashScreen from "expo-splash-screen";
 
 import BottomTabs from "./BottomTabs";
 import IntroScreen from "../pages/IntroScreen";
-import DetailsScreen from "../pages/Details";
-import StatisticsScreen from "../pages/Statistic";
-import ClothesScreen from "../pages/Clothes";
+import DetailsScreen from "../pages/DetailScreen";
+import StatisticsScreen from "../pages/StatisticScreen";
+import ClothesScreen from "../pages/ClothesScreen";
 
 const Stack = createStackNavigator();
-SplashScreen.preventAutoHideAsync();
 
 export default function AppNavigator() {
   const [initialRoute, setInitialRoute] = useState(null);
@@ -20,7 +18,6 @@ export default function AppNavigator() {
     const checkIntro = async () => {
       const seen = await AsyncStorage.getItem("hasSeenIntro");
       setInitialRoute(seen === "true" ? "Tabs" : "Intro");
-      await SplashScreen.hideAsync();
     };
     checkIntro();
   }, []);

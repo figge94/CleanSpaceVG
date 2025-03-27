@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SettingsContext } from "../context/SettingsContext";
+import useSettings from "../hooks/useSettings";
 import getTabBarIcon from "./getTabBarIcon";
 
-import HomeScreen from "../pages/Home";
-import ClothesScreen from "../pages/Clothes";
-import TipsScreen from "../pages/Tips";
-import ProfileScreen from "../pages/Profile";
+import HomeScreen from "../pages/HomeScreen";
+import ClothesScreen from "../pages/ClothesScreen";
+import TipsScreen from "../pages/TipsScreen";
+import ProfileScreen from "../pages/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
-  const { theme } = useContext(SettingsContext);
+  const { theme } = useSettings();
 
   return (
     <Tab.Navigator

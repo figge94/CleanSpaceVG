@@ -1,27 +1,18 @@
-import React, { useEffect, useState, useContext, useMemo } from "react";
+import React from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
-import { SettingsContext } from "../context/SettingsContext";
+import useSettings from "../hooks/useSettings";
 import { globalStyles, statisticStyles, cardStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { errorText } from "../styles/utilities";
 import useFavorites from "../hooks/useFavorites";
+import useClothingStats from "../hooks/useClothingStats";
 
 export default function StatisticsScreen() {
-  const { theme } = useContext(SettingsContext);
+  const { theme } = useSettings();
   const { data = [], isLoading, error } = useClothes();
+  const { getFavoriteCount } = useFavorites();
 
-  const { getFavoriteCount } = useFavorites(); // 👈 Endast detta behövs
-
-  const stats = useMemo(() => {
-    return {
-      totalItems: data.length,
-      categoryCount: data.reduce((acc, item) => {
-        const cat = item.category?.main || "Okänd";
-        acc[cat] = (acc[cat] || 0) + 1;
-        return acc;
-      }, {})
-    };
-  }, [data]);
+  const stats = useClothingStats(data);
 
   const categoryEntries = Object.entries(stats.categoryCount);
 
@@ -91,7 +82,7 @@ export default function StatisticsScreen() {
                 Favoritplagg
               </Text>
               <Text style={[statisticStyles.statValue, { color: theme.text }]}>
-                {getFavoriteCount()} {/* 👈 Använd hooken här */}
+                {getFavoriteCount()}
               </Text>
             </View>
           </View>

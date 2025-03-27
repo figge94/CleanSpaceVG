@@ -9,7 +9,7 @@ import {
   Platform
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { tipsStyles } from "../styles/styles";
+import { globalStyles } from "../styles/styles";
 
 // Aktivera animation på Android
 if (
@@ -38,15 +38,15 @@ export default function TipsList({
         activeOpacity={0.8}
         onPress={toggleExpand}
         style={[
-          tipsStyles.tipCard,
-          isExpanded && tipsStyles.tipCardExpanded,
+          globalStyles.tipCard,
+          isExpanded && globalStyles.tipCardExpanded,
           {
             backgroundColor: theme.cardBackground,
             borderColor: theme.borderColor
           }
         ]}>
-        <View style={tipsStyles.tipHeader}>
-          <Text style={[tipsStyles.tipTitle, { color: theme.text }]}>
+        <View style={globalStyles.tipHeader}>
+          <Text style={[globalStyles.tipTitle, { color: theme.text }]}>
             {item.title}
           </Text>
           <MaterialIcons
@@ -56,7 +56,7 @@ export default function TipsList({
           />
         </View>
         {isExpanded && (
-          <Text style={[tipsStyles.tipText, { color: theme.text }]}>
+          <Text style={[globalStyles.tipText, { color: theme.text }]}>
             {item.text}
           </Text>
         )}
@@ -69,7 +69,7 @@ export default function TipsList({
       data={tips}
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
-      contentContainerStyle={tipsStyles.content}
+      contentContainerStyle={globalStyles.content}
       ListFooterComponent={<View style={{ height: 20 }} />}
     />
   );

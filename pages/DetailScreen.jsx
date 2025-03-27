@@ -1,45 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  BackHandler,
-  TouchableOpacity
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SettingsContext } from "../context/SettingsContext";
-import {
-  globalStyles,
-  detailStyles,
-  tagStyles,
-  buttonStyles
-} from "../styles/styles";
+import { globalStyles, tagStyles, buttonStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
+import useBackHandler from "../hooks/useBackHandler";
+import useFormattedDates from "../hooks/useFormattedDates";
+import useSettings from "../hooks/useSettings";
 
 export default function DetailsScreen({ route, navigation }) {
-  const { theme } = useContext(SettingsContext);
+  const { theme } = useSettings();
   const { deleteItem } = useClothes();
   const item = route.params?.item;
   const [modalVisible, setModalVisible] = useState(false);
+  const { createdAt, lastUsed } = useFormattedDates(item);
 
   const confirmDelete = useDeleteConfirmation(deleteItem, () =>
     navigation.goBack()
   );
 
-  useEffect(() => {
-    const backAction = () => {
-      navigation.goBack();
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-    return () => backHandler.remove();
-  }, []);
+  useBackHandler(() => navigation.goBack());
 
   if (!item) {
     return (
@@ -54,7 +35,7 @@ export default function DetailsScreen({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>
-      <ScrollView contentContainerStyle={detailStyles.scrollContainer}>
+      <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
         <View style={{ paddingVertical: 15, alignItems: "center" }}>
           <Text style={[globalStyles.title, { color: theme.text }]}>
             {item.name}
@@ -82,7 +63,7 @@ export default function DetailsScreen({ route, navigation }) {
         {/* Info-kort */}
         <View
           style={[
-            detailStyles.detailsCard,
+            globalStyles.detailsCard,
             { backgroundColor: theme.cardBackground }
           ]}>
           <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
@@ -100,18 +81,14 @@ export default function DetailsScreen({ route, navigation }) {
           <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
             Senast använd:
           </Text>
-          <Text style={{ color: theme.text }}>
-            {item.lastUsed
-              ? new Date(item.lastUsed).toLocaleDateString("sv-SE")
-              : "Okänt"}
-          </Text>
+          <Text style={{ color: theme.text }}>{lastUsed}</Text>
         </View>
 
         {/* Noteringar */}
         {item.notes && (
           <View
             style={[
-              detailStyles.noteContainer,
+              globalStyles.noteContainer,
               { backgroundColor: theme.cardBackground }
             ]}>
             <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
@@ -125,7 +102,7 @@ export default function DetailsScreen({ route, navigation }) {
                 padding: 10,
                 borderRadius: 6
               }}>
-              <Text style={[detailStyles.notes, { color: theme.text }]}>
+              <Text style={[globalStyles.notes, { color: theme.text }]}>
                 {item.notes}
               </Text>
             </View>
@@ -133,13 +110,11 @@ export default function DetailsScreen({ route, navigation }) {
         )}
 
         {/* Datum och knappar */}
-        <View style={detailStyles.centeredContainer}>
+        <View style={globalStyles.centeredContainer}>
           <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
             Tillagd:
           </Text>
-          <Text style={{ color: theme.text }}>
-            {new Date(item.createdAt).toLocaleDateString("sv-SE")}
-          </Text>
+          <Text style={{ color: theme.text }}>{createdAt}</Text>
         </View>
 
         <View style={buttonStyles.buttonContainer}>

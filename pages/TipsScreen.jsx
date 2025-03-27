@@ -1,39 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Animated, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SettingsContext } from "../context/SettingsContext";
+import useSettings from "../hooks/useSettings";
 import { buttonStyles, globalStyles, tipsStyles } from "../styles/styles";
-import allTips from "../data/TipsData";
 import { TipsList } from "../components";
+import useRandomTip from "../hooks/useRandomTip";
+import useTipFilter from "../hooks/useTipFilter";
 
 export default function TipsScreen() {
-  const { theme } = useContext(SettingsContext);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showTips, setShowTips] = useState(false);
-  const [randomTip, setRandomTip] = useState(null);
+  const { theme } = useSettings();
   const [expandedTipId, setExpandedTipId] = useState(null);
-  const fadeAnim = useState(new Animated.Value(0))[0];
-
-  const categories = ["Förvaring", "Organisering", "Tvätt", "Mer utrymme"];
-
-  const getRandomTip = () => {
-    const newTip = allTips[Math.floor(Math.random() * allTips.length)];
-    setRandomTip(newTip);
-    fadeAnim.setValue(0);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true
-    }).start();
-  };
-
-  useEffect(() => {
-    getRandomTip();
-  }, []);
-
-  const filteredTips = selectedCategory
-    ? allTips.filter((tip) => tip.category === selectedCategory)
-    : [];
+  const { randomTip, fadeAnim, getRandomTip } = useRandomTip();
+  const {
+    showTips,
+    toggleTips,
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    filteredTips
+  } = useTipFilter();
 
   return (
     <View
@@ -43,14 +28,15 @@ export default function TipsScreen() {
       {randomTip && (
         <Animated.View
           style={[
-            tipsStyles.featuredTip,
+            globalStyles.featuredTip,
             { backgroundColor: theme.cardBackground, opacity: fadeAnim }
           ]}>
           <View>
-            <Text style={[tipsStyles.featuredTipTitle, { color: theme.text }]}>
+            <Text
+              style={[globalStyles.featuredTipTitle, { color: theme.text }]}>
               {randomTip.title}
             </Text>
-            <Text style={[tipsStyles.featuredTipText, { color: theme.text }]}>
+            <Text style={[globalStyles.featuredTipText, { color: theme.text }]}>
               {randomTip.text}
             </Text>
           </View>
@@ -58,13 +44,13 @@ export default function TipsScreen() {
           <TouchableOpacity
             onPress={getRandomTip}
             style={[
-              tipsStyles.shuffleButton,
+              globalStyles.shuffleButton,
               { backgroundColor: theme.buttonBackground }
             ]}>
             <MaterialIcons name="refresh" size={22} color={theme.buttonText} />
             <Text
               style={[
-                tipsStyles.shuffleButtonText,
+                globalStyles.shuffleButtonText,
                 { color: theme.buttonText }
               ]}>
               Nytt tips
@@ -78,10 +64,7 @@ export default function TipsScreen() {
           buttonStyles.toggleButton,
           { backgroundColor: theme.buttonBackground }
         ]}
-        onPress={() => {
-          setShowTips(!showTips);
-          setSelectedCategory(showTips ? null : "Förvaring");
-        }}>
+        onPress={toggleTips}>
         <Text
           style={[buttonStyles.toggleButtonText, { color: theme.buttonText }]}>
           {showTips ? "Dölj fler tips" : "Visa fler tips"}

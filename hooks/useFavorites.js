@@ -32,9 +32,12 @@ export default function useFavorites() {
   const getFavoriteCount = () =>
     Object.values(favorites).filter(Boolean).length;
 
+  const isFavorite = (itemId) => !!favorites[itemId];
+
   return {
-    favorites,
-    toggleFavorite,
-    getFavoriteCount
+    favorites, // Själva datan
+    toggleFavorite, // För att lägga till eller ta bort favorit
+    getFavoriteCount, // Enkel statistikhjälp
+    isFavorite
   };
 }

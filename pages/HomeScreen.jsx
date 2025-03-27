@@ -1,28 +1,14 @@
-import React, { useEffect, useContext, useState } from "react";
+import React from "react";
 import { SafeAreaView, ScrollView, View, Image, Text } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { SettingsContext } from "../context/SettingsContext";
+import useSettings from "../hooks/useSettings";
 import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
 
-SplashScreen.preventAutoHideAsync();
-
 export default function HomeScreen({ navigation }) {
-  const { theme } = useContext(SettingsContext);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    async function prepare() {
-      if (theme) {
-        await SplashScreen.hideAsync();
-        setIsReady(true);
-      }
-    }
-    prepare();
-  }, [theme]);
+  const { theme } = useSettings();
 
   const goToIntro = async () => {
     await AsyncStorage.removeItem("hasSeenIntro");
@@ -40,7 +26,7 @@ export default function HomeScreen({ navigation }) {
         <View style={imageStyles.headerContainer}>
           <Image
             source={require("../assets/wardrobe.png")}
-            style={imageStyles.wardrobeImage}
+            style={imageStyles.headerImage}
           />
         </View>
 
@@ -50,9 +36,7 @@ export default function HomeScreen({ navigation }) {
               Rensa enkelt, organisera smart
             </Text>
             {"\n"}
-            <Text style={globalStyles.introText}>
-              Få full koll på din garderob snabbt och smidigt.
-            </Text>
+            <Text>Få full koll på din garderob snabbt och smidigt.</Text>
           </Text>
 
           <View style={buttonStyles.buttonContainer}>

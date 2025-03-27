@@ -1,34 +1,29 @@
-import { useContext } from "react";
-import { Text, View, Image, Animated } from "react-native";
+import React from "react";
+import { Text, Image, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SettingsContext } from "../context/SettingsContext"; // Hanterar tema och mörkt/ljust läge
-import { buttonStyles, globalStyles, imageStyles } from "../styles/styles"; // Gemensamma bildstilar
+
+import useSettings from "../hooks/useSettings";
+import { buttonStyles, globalStyles, imageStyles } from "../styles/styles";
 import { Button } from "../components";
+import useThemeTransition from "../hooks/useThemeTransition";
 
-// Skärm som visar användarens profilinformation samt inställningar
 export default function ProfileScreen({ navigation }) {
-  const { darkMode, toggleDarkMode, theme } = useContext(SettingsContext);
+  const { theme } = useSettings();
+  const transition = useThemeTransition(darkMode);
 
-  // Förbereder en animering för temaväxling (används ej visuellt i denna version)
-  const transition = new Animated.Value(darkMode ? 1 : 0);
-
-  Animated.timing(transition, {
-    toValue: darkMode ? 0 : 1,
-    duration: 300,
-    useNativeDriver: false
-  }).start();
+  const backgroundColor = transition.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["#121212", "#ece3df"] // Mörkt till ljust tema
+  });
 
   return (
-    // Hela sidan får bakgrundsfärg baserat på aktuellt tema
-    <View
-      style={[globalStyles.container, { backgroundColor: theme.background }]}>
-      {/* Profilbild */}
+    <Animated.View // 👈 Byter till Animated.View
+      style={[globalStyles.container, { backgroundColor }]}>
       <Image
         source={require("../assets/user.png")}
         style={imageStyles.profileImage}
       />
 
-      {/* Användarnamn och e-post */}
       <Text style={[globalStyles.username, { color: theme.text }]}>
         Webmaster
       </Text>
@@ -36,9 +31,7 @@ export default function ProfileScreen({ navigation }) {
         user@example.com
       </Text>
 
-      {/* Sektion för inställningar */}
       <View style={buttonStyles.buttonContainer}>
-        {/* Navigeringsknapp till statistik */}
         <Button
           icon={
             <MaterialIcons
@@ -52,12 +45,12 @@ export default function ProfileScreen({ navigation }) {
           theme={theme}
         />
       </View>
+
       <View style={buttonStyles.buttonContainer}>
         <Text style={[globalStyles.subTitle, { color: theme.text }]}>
           Inställningar
         </Text>
 
-        {/* Knapp som växlar mellan mörkt och ljust tema */}
         <Button
           icon={
             <MaterialIcons
@@ -71,6 +64,6 @@ export default function ProfileScreen({ navigation }) {
           theme={theme}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 }
