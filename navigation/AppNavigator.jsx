@@ -5,15 +5,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import BottomTabs from "./BottomTabs";
 import IntroScreen from "../pages/IntroScreen";
-import DetailsScreen from "../pages/Details";
-import StatisticsScreen from "../pages/Statistic";
-import ClothesScreen from "../pages/Clothes";
-import useInitialRoute from "../hooks/useInitialRoute";
+import DetailsScreen from "../pages/DetailScreen";
+import StatisticsScreen from "../pages/StatisticScreen";
+import ClothesScreen from "../pages/ClothesScreen";
 
 const Stack = createStackNavigator();
 
 export default function AppNavigator() {
-  const initialRoute = useInitialRoute();
+  const [initialRoute, setInitialRoute] = useState(null);
+
+  useEffect(() => {
+    const checkIntro = async () => {
+      const seen = await AsyncStorage.getItem("hasSeenIntro");
+      setInitialRoute(seen === "true" ? "Tabs" : "Intro");
+    };
+    checkIntro();
+  }, []);
 
   if (!initialRoute) {
     return (

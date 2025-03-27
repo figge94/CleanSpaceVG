@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,15 +9,14 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { SettingsContext } from "../context/SettingsContext";
 import { useClothes } from "../data/apiData";
 import { buttonStyles, globalStyles } from "../styles/styles";
 import { AddModal, Card } from "../components";
 import SearchBar from "../components/SearchBar";
+import useFilteredClothes from "../hooks/useFilteredClothes";
 import useFavorites from "../hooks/useFavorites";
 
 export default function ClothesScreen({ navigation }) {
-  const { theme } = useContext(SettingsContext);
   const { data, isLoading, error, refetch, deleteItem } = useClothes();
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,20 +24,13 @@ export default function ClothesScreen({ navigation }) {
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const { favorites, toggleFavorite } = useFavorites();
 
-  const categories = [
-    "Alla",
-    ...new Set(data.map((item) => item.category?.main || "Okänd"))
-  ];
-
-  const filteredData = data.filter((item) => {
-    const matchKategori =
-      selectedCategory === "Alla" || item.category?.main === selectedCategory;
-    const matchSearch = item.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const isFavorite = favorites[item._id];
-    return matchKategori && matchSearch && (!showOnlyFavorites || isFavorite);
-  });
+  const { categories, filteredData } = useFilteredClothes(
+    data,
+    searchQuery,
+    selectedCategory,
+    showOnlyFavorites,
+    favorites
+  );
 
   return (
     <View
@@ -106,7 +98,7 @@ export default function ClothesScreen({ navigation }) {
         />
       </View>
 
-      <SearchBar value={searchQuery} onChange={setSearchQuery} theme={theme} />
+      <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
       <View style={{ flex: 1, marginBottom: 20 }}>
         {isLoading ? (
@@ -124,8 +116,6 @@ export default function ClothesScreen({ navigation }) {
                 item={item}
                 theme={theme}
                 onPress={() => navigation.navigate("Details", { item })}
-                onToggleFavorite={() => toggleFavorite(item._id)}
-                isFavorite={favorites[item._id]}
               />
             )}
           />

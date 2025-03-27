@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { buttonStyles } from "../styles/styles";
-import { SettingsContext } from "../context/SettingsContext";
 
 export default function Button({ title, onPress, icon, style, disabled }) {
-  const { theme } = useContext(SettingsContext);
-
   return (
     <Pressable
       onPress={onPress}

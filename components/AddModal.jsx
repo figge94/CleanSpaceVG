@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Modal,
   View,
@@ -7,56 +7,35 @@ import {
   TextInput,
   TouchableOpacity,
   Platform,
-  Alert,
   KeyboardAvoidingView
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { SettingsContext } from "../context/SettingsContext";
-import { useClothes } from "../data/apiData";
 import { globalStyles } from "../styles/styles";
 import { Button } from "../components";
+import useAddClothingItem from "../hooks/useAddClothingItem";
+import { formatDate } from "../utils/dateUtils";
 
-export default function AddModal({ visible, onClose, theme }) {
-  const { createItem, refetch } = useClothes();
-  const { theme: contextTheme } = useContext(SettingsContext);
-
-  // Form state
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [condition, setCondition] = useState("");
-  const [lastUsed, setLastUsed] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [tags, setTags] = useState("");
-  const [notes, setNotes] = useState("");
-
-  const onChangeDate = (event, selectedDate) => {
-    setShowDatePicker(Platform.OS === "ios");
-    if (selectedDate) setLastUsed(selectedDate);
-  };
-
-  const handleSave = async () => {
-    if (!name || !category) {
-      Alert.alert("Fel", "Namn och kategori är obligatoriska fält.");
-      return;
-    }
-
-    const newItem = {
-      name,
-      category: { main: category },
-      condition,
-      notes,
-      lastUsed: lastUsed ? new Date(lastUsed) : null,
-      tags: tags ? tags.split(",").map((tag) => tag.trim()) : [],
-      clearedAt: null
-    };
-
-    await createItem(newItem);
-    await refetch();
-    Alert.alert("Lyckades!", "Plagget har lagts till.");
-    onClose();
-  };
+export default function AddModal({ visible, onClose }) {
+  const {
+    name,
+    setName,
+    category,
+    setCategory,
+    condition,
+    setCondition,
+    lastUsed,
+    setLastUsed,
+    showDatePicker,
+    setShowDatePicker,
+    onChangeDate,
+    tags,
+    setTags,
+    notes,
+    setNotes,
+    handleSave
+  } = useAddClothingItem(onClose);
 
   return (
     <Modal
@@ -67,20 +46,12 @@ export default function AddModal({ visible, onClose, theme }) {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            justifyContent: "flex-end"
-          }}>
+        <View style={globalStyles.addModal.backdrop}>
           <View
-            style={{
-              maxHeight: "90%",
-              backgroundColor: theme.cardBackground,
-              padding: 20,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20
-            }}>
+            style={[
+              globalStyles.addModal.container,
+              { backgroundColor: theme.cardBackground } // Använd det aktuella kort-temat
+            ]}>
             <ScrollView
               contentContainerStyle={{ paddingBottom: 20 }}
               showsVerticalScrollIndicator={false}>
@@ -88,43 +59,75 @@ export default function AddModal({ visible, onClose, theme }) {
                 Lägg till plagg
               </Text>
 
-              {/* Formfält */}
-              <Text style={{ color: theme.text, marginTop: 5 }}>Namn</Text>
+              {/* Namn fält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Namn
+              </Text>
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="T.ex. svart tröja"
-                placeholderTextColor={globalStyles.text}
+                placeholderTextColor={theme.text}
                 value={name}
                 onChangeText={setName}
               />
 
-              <Text style={{ color: theme.text, marginTop: 5 }}>Kategori</Text>
+              {/* Kategori fält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Kategori
+              </Text>
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="T.ex. ytterplagg"
-                placeholderTextColor={globalStyles.text}
+                placeholderTextColor={theme.text}
                 value={category}
                 onChangeText={setCategory}
               />
 
-              <Text style={{ color: theme.text, marginTop: 5 }}>Skick</Text>
-              <View style={{ flexDirection: "row", marginBottom: 10 }}>
+              {/* Skick fält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Skick
+              </Text>
+              <View style={globalStyles.addModal.conditionRow}>
                 {["Bra", "Sådär", "Dålig"].map((value) => (
                   <TouchableOpacity
                     key={value}
                     onPress={() => setCondition(value)}
-                    style={{
-                      backgroundColor:
-                        condition === value
-                          ? theme.buttonBackground
-                          : theme.cardBackground,
-                      borderColor: theme.borderColor,
-                      borderWidth: 1,
-                      borderRadius: 20,
-                      paddingVertical: 8,
-                      paddingHorizontal: 16,
-                      marginRight: 10
-                    }}>
+                    style={[
+                      globalStyles.addModal.conditionButton,
+                      {
+                        backgroundColor:
+                          condition === value
+                            ? theme.buttonBackground
+                            : theme.cardBackground,
+                        borderColor: theme.borderColor
+                      }
+                    ]}>
                     <Text
                       style={{
                         color: condition === value ? "#fff" : theme.text,
@@ -136,17 +139,17 @@ export default function AddModal({ visible, onClose, theme }) {
                 ))}
               </View>
 
-              <Text style={{ color: theme.text, fontWeight: "bold" }}>
+              {/* Datum väljare */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
                 Senast använd
               </Text>
               <Button
-                title={
-                  lastUsed
-                    ? new Date(lastUsed).toLocaleDateString("sv-SE")
-                    : "Välj datum"
-                }
+                title={formatDate(lastUsed)}
                 onPress={() => setShowDatePicker(true)}
-                theme={theme}
                 icon={
                   <MaterialIcons
                     name="calendar-today"
@@ -155,12 +158,13 @@ export default function AddModal({ visible, onClose, theme }) {
                   />
                 }
                 style={{
-                  backgroundColor: "#6D4F40",
+                  backgroundColor: theme.buttonBackground,
                   width: "100%",
                   borderRadius: 8,
                   paddingVertical: 12
                 }}
               />
+
               {showDatePicker && (
                 <DateTimePicker
                   value={lastUsed || new Date()}
@@ -170,38 +174,64 @@ export default function AddModal({ visible, onClose, theme }) {
                 />
               )}
 
-              <Text style={{ color: theme.text, marginTop: 5 }}>Taggar</Text>
+              {/* Taggar fält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Taggar
+              </Text>
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="T.ex. vardag, sommar"
-                placeholderTextColor={globalStyles.text}
+                placeholderTextColor={theme.text}
                 value={tags}
                 onChangeText={setTags}
               />
 
-              <Text style={{ color: theme.text, marginTop: 5 }}>
+              {/* Anteckningar fält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
                 Anteckningar
               </Text>
               <TextInput
-                style={[globalStyles.input, { height: 70 }]}
+                style={[
+                  globalStyles.input,
+                  globalStyles.addModal.noteInput,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="T.ex. fått av mamma"
-                placeholderTextColor={globalStyles.text}
+                placeholderTextColor={theme.text}
                 value={notes}
                 onChangeText={setNotes}
                 multiline
               />
 
-              <View style={{ marginTop: 10 }}>
+              {/* Button för att spara */}
+              <View style={globalStyles.addModal.buttonGroup}>
                 <Button
                   title="Lägg till"
                   onPress={handleSave}
-                  theme={theme}
                   style={{ width: "100%" }}
                 />
                 <Button
                   title="Avbryt"
                   onPress={onClose}
-                  theme={theme}
                   style={{ backgroundColor: "#cc0000", width: "100%" }}
                 />
               </View>

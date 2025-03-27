@@ -1,32 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SettingsContext } from "../context/SettingsContext";
-import getTabBarIcon from "./getTabBarIcon";
 
-import HomeScreen from "../pages/Home";
-import ClothesScreen from "../pages/Clothes";
-import TipsScreen from "../pages/Tips";
-import ProfileScreen from "../pages/Profile";
+import getTabBarIcon from "./getTabBarIcon";
+import { getScreenOptions } from "./tabOptions";
+
+import HomeScreen from "../pages/HomeScreen";
+import ClothesScreen from "../pages/ClothesScreen";
+import TipsScreen from "../pages/TipsScreen";
+import ProfileScreen from "../pages/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
-  const { theme } = useContext(SettingsContext);
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false,
+        ...getScreenOptions(),
         tabBarIcon: ({ focused, color, size }) =>
-          getTabBarIcon(route.name, focused, color, size),
-        tabBarActiveTintColor: theme.buttonBackground,
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: {
-          backgroundColor: theme.cardBackground,
-          paddingBottom: 5,
-          height: 60,
-          position: "absolute"
-        }
+          getTabBarIcon(route.name, focused, color, size)
       })}>
       <Tab.Screen
         name="Home"

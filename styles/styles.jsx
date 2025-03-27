@@ -5,7 +5,6 @@ import {
   titleText,
   subTitleText,
   sectionTitleText,
-  centeredText,
   baseButton,
   buttonText,
   cardBase,
@@ -20,7 +19,6 @@ import {
   tipTitleText
 } from "./utilities";
 
-// Global Styles
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -31,7 +29,7 @@ export const globalStyles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    ...centeredText,
+    textAlign: "center",
     marginBottom: 25,
     paddingHorizontal: 20,
     opacity: 0.8,
@@ -42,6 +40,20 @@ export const globalStyles = StyleSheet.create({
     padding: 20,
     borderRadius: 12,
     ...shadow
+  },
+  header: {
+    paddingVertical: 15,
+    alignItems: "center"
+  },
+  notesBox: {
+    padding: 10,
+    borderRadius: 6
+  },
+  backButtonWrapper: {
+    backgroundColor: "theme", // sätts dynamiskt
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   title: {
     ...titleText,
@@ -62,16 +74,22 @@ export const globalStyles = StyleSheet.create({
   username: {
     fontSize: 24,
     fontWeight: "bold",
-    ...centeredText
+    textAlign: "center"
   },
   email: {
     fontSize: 16,
-    ...centeredText
+    textAlign: "center"
   },
   contentContainer: {
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 10
+  },
+  searchInput: {
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 8,
+    borderWidth: 1
   },
   input: {
     backgroundColor: "#ededed",
@@ -85,6 +103,190 @@ export const globalStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5
+  },
+  settingsHeader: {
+    fontSize: 24,
+    fontWeight: "bold"
+  },
+  introContainer: {
+    paddingBottom: 50
+  },
+  addModal: {
+    container: {
+      maxHeight: "90%",
+      padding: 20,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20
+    },
+    backdrop: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      justifyContent: "flex-end"
+    },
+    formSection: {
+      marginTop: 5,
+      color: "inherit"
+    },
+    conditionRow: {
+      flexDirection: "row",
+      marginBottom: 10
+    },
+    conditionButton: {
+      borderWidth: 1,
+      borderRadius: 20,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      marginRight: 10
+    },
+    noteInput: {
+      height: 70
+    },
+    buttonGroup: {
+      marginTop: 10
+    }
+  },
+  editModal: {
+    backdrop: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    container: {
+      width: "90%",
+      maxHeight: "80%",
+      padding: 20,
+      borderRadius: 10
+    },
+    button: {
+      padding: 12,
+      borderRadius: 10,
+      alignItems: "center",
+      marginTop: 10
+    },
+    cancelButton: {
+      backgroundColor: "#888"
+    },
+    cancelText: {
+      color: "#fff",
+      fontSize: 16,
+      fontWeight: "bold"
+    },
+    saveText: {
+      fontSize: 16,
+      fontWeight: "bold"
+    },
+    noteInput: {
+      height: 80
+    }
+  },
+  scrollContainer: {
+    paddingBottom: 40,
+    paddingHorizontal: 20
+  },
+  header: {
+    paddingVertical: 15,
+    alignItems: "center"
+  },
+  detailsCard: {
+    padding: 14,
+    marginTop: 15,
+    ...rounded(),
+    ...shadow
+  },
+  noteContainer: {
+    padding: 12,
+    marginTop: 15,
+    marginBottom: 20,
+    ...rounded(),
+    ...shadow
+  },
+  notesBox: {
+    padding: 10,
+    borderRadius: 6
+  },
+  notes: {
+    ...noteText,
+    flexShrink: 1,
+    padding: 15,
+    ...rounded()
+  },
+  centeredContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 5
+  },
+  featuredTipContainer: {
+    marginVertical: 10,
+    padding: 15,
+    ...rounded()
+  },
+  featuredTip: {
+    padding: 20,
+    ...rounded(),
+
+    alignItems: "center",
+    ...shadow
+  },
+  featuredTipTitle: {
+    ...tipTitleText
+  },
+  featuredTipText: {
+    ...tipText
+  },
+  shuffleButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    ...rounded(),
+    marginTop: 10,
+    elevation: 3
+  },
+  shuffleButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 8,
+    color: "#fff"
+  },
+  tipCard: {
+    padding: 14,
+    marginVertical: 5,
+    ...rounded(),
+    backgroundColor: "#fff",
+    ...shadow
+  },
+  tipCardExpanded: {
+    minHeight: 100
+  },
+  tipHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  tipTitle: {
+    fontSize: 18,
+    fontWeight: "bold"
+  },
+  tipText: {
+    fontSize: 14,
+    marginTop: 8,
+    opacity: 0.9
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  email: {
+    fontSize: 16,
+    opacity: 0.7,
+    textAlign: "center"
+  },
+  settingsContainer: {
+    marginTop: 20,
+    alignItems: "center",
+    width: "100%"
   },
   settingsHeader: {
     fontSize: 24,
@@ -114,7 +316,6 @@ export const buttonStyles = StyleSheet.create({
   },
   toggleButton: {
     ...baseButton,
-    paddingHorizontal: 20,
     alignSelf: "stretch"
   },
   toggleButtonText: {
@@ -165,7 +366,7 @@ export const imageStyles = StyleSheet.create({
     marginBottom: 250,
     ...center
   },
-  wardrobeImage: {
+  headerImage: {
     position: "absolute",
     top: 0,
     height: 200,
@@ -247,7 +448,7 @@ export const statisticStyles = StyleSheet.create({
     fontWeight: "bold",
 
     marginBottom: 5,
-    ...centeredText
+    textAlign: "center"
   },
   statValue: {
     fontSize: 18,
@@ -274,64 +475,6 @@ export const tipsStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold"
   },
-
-  featuredTipContainer: {
-    marginVertical: 10,
-    padding: 15,
-    ...rounded()
-  },
-  featuredTip: {
-    padding: 20,
-    ...rounded(),
-
-    alignItems: "center",
-    ...shadow
-  },
-  featuredTipTitle: {
-    ...tipTitleText
-  },
-  featuredTipText: {
-    ...tipText
-  },
-  shuffleButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    ...rounded(),
-    marginTop: 10,
-    elevation: 3
-  },
-  shuffleButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 8,
-    color: "#fff"
-  },
-  tipCard: {
-    padding: 14,
-    marginVertical: 5,
-    ...rounded(),
-    backgroundColor: "#fff",
-    ...shadow
-  },
-  tipCardExpanded: {
-    minHeight: 100
-  },
-  tipHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  tipTitle: {
-    fontSize: 18,
-    fontWeight: "bold"
-  },
-  tipText: {
-    fontSize: 14,
-    marginTop: 8,
-    opacity: 0.9
-  },
   content: {
     paddingBottom: 20
   }
@@ -344,52 +487,5 @@ export const profileStyles = StyleSheet.create({
     paddingVertical: 60,
     paddingHorizontal: 20,
     justifyContent: "center"
-  },
-  username: {
-    fontSize: 24,
-    fontWeight: "bold"
-  },
-  email: {
-    fontSize: 16,
-    opacity: 0.7
-  },
-  settingsContainer: {
-    marginTop: 20,
-    alignItems: "center",
-    width: "100%"
-  },
-  settingsHeader: {
-    fontSize: 24,
-    fontWeight: "bold"
-  }
-});
-
-export const detailStyles = StyleSheet.create({
-  scrollContainer: {
-    paddingBottom: 40,
-    paddingHorizontal: 20
-  },
-  detailsCard: {
-    padding: 14,
-    marginTop: 15,
-    ...rounded(),
-    ...shadow
-  },
-  noteContainer: {
-    padding: 12,
-    marginTop: 15,
-    marginBottom: 20,
-    ...rounded(),
-    ...shadow
-  },
-  notes: {
-    ...noteText,
-    flexShrink: 1,
-    padding: 15,
-    ...rounded()
-  },
-  centeredContainer: {
-    ...center,
-    marginVertical: 5
   }
 });

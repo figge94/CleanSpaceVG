@@ -39,7 +39,7 @@ export const tipText = {
 export const errorText = {
   fontSize: 18,
   color: "red",
-  ...centeredText
+  textAlign: "center"
 };
 
 export const noteText = {
@@ -47,8 +47,6 @@ export const noteText = {
   fontStyle: "italic",
   opacity: 0.85
 };
-
-export const centeredText = { textAlign: "center" };
 
 export const leftAlignedText = {
   textAlign: "left"
@@ -61,8 +59,8 @@ export const baseButton = {
   paddingVertical: 14,
   paddingHorizontal: 20,
   borderRadius: 10,
-  width: "90%",
   marginTop: 15,
+  width: "100%",
   ...shadow
 };
 
@@ -70,7 +68,7 @@ export const buttonText = {
   fontSize: 18,
   fontWeight: "bold",
   textTransform: "uppercase",
-  ...centeredText
+  textAlign: "center"
 };
 
 export const rounded = (radius = 12) => ({

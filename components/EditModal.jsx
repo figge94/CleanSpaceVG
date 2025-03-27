@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Modal,
   Text,
@@ -7,14 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+<<<<<<< HEAD
   Platform,
   Alert,
   ActivityIndicator
+=======
+  Platform
+>>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
 } from "react-native";
-import { SettingsContext } from "../context/SettingsContext";
-import { useClothes } from "../data/apiData";
-import { globalStyles } from "../styles/styles";
 
+import { globalStyles } from "../styles/styles";
+import useEditClothingItem from "../hooks/useEditClothingItem";
+
+<<<<<<< HEAD
 export default function EditModal({ visible, onClose, item, theme }) {
   const { updateItem, refetch } = useClothes();
   const { theme: contextTheme } = useContext(SettingsContext);
@@ -52,6 +57,20 @@ export default function EditModal({ visible, onClose, item, theme }) {
       setIsSaving(false); // Slutför sparandeprocess
     }
   };
+=======
+export default function EditModal({ visible, onClose, item }) {
+  const {
+    name,
+    category,
+    condition,
+    notes,
+    setName,
+    setCategory,
+    setCondition,
+    setNotes,
+    handleSave
+  } = useEditClothingItem(item, onClose);
+>>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
 
   return (
     <Modal
@@ -62,21 +81,12 @@ export default function EditModal({ visible, onClose, item, theme }) {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
+        <View style={globalStyles.editModal.backdrop}>
           <View
-            style={{
-              width: "100%",
-              maxHeight: "100%",
-              backgroundColor: theme.cardBackground,
-              padding: 30,
-              borderRadius: 10
-            }}>
+            style={[
+              globalStyles.editModal.container,
+              { backgroundColor: theme.cardBackground }
+            ]}>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
               <Text style={[globalStyles.title, { color: theme.text }]}>
                 Redigera detaljer för {item.name}
@@ -84,7 +94,14 @@ export default function EditModal({ visible, onClose, item, theme }) {
 
               {/* Inputfält */}
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="Namn på plagget"
                 placeholderTextColor={theme.text}
                 value={name}
@@ -92,7 +109,14 @@ export default function EditModal({ visible, onClose, item, theme }) {
               />
 
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="Kategori"
                 placeholderTextColor={theme.text}
                 value={category}
@@ -100,7 +124,14 @@ export default function EditModal({ visible, onClose, item, theme }) {
               />
 
               <TextInput
-                style={globalStyles.input}
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="Skick"
                 placeholderTextColor={theme.text}
                 value={condition}
@@ -108,7 +139,15 @@ export default function EditModal({ visible, onClose, item, theme }) {
               />
 
               <TextInput
-                style={[globalStyles.input, { height: 80 }]}
+                style={[
+                  globalStyles.input,
+                  globalStyles.editModal.noteInput,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground
+                  }
+                ]}
                 placeholder="Anteckningar"
                 placeholderTextColor={theme.text}
                 value={notes}
@@ -118,6 +157,7 @@ export default function EditModal({ visible, onClose, item, theme }) {
 
               {/* Spara och Avbryt knappar */}
               <TouchableOpacity
+<<<<<<< HEAD
                 style={{
                   backgroundColor: theme.buttonBackground,
                   padding: 12,
@@ -139,25 +179,29 @@ export default function EditModal({ visible, onClose, item, theme }) {
                     Spara ändringar
                   </Text>
                 )}
+=======
+                style={[
+                  globalStyles.editModal.button,
+                  { backgroundColor: theme.buttonBackground }
+                ]}
+                onPress={handleSave}>
+                <Text
+                  style={[
+                    globalStyles.editModal.saveText,
+                    { color: theme.buttonText }
+                  ]}>
+                  Spara ändringar
+                </Text>
+>>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={{
-                  backgroundColor: "#888",
-                  padding: 12,
-                  borderRadius: 10,
-                  alignItems: "center",
-                  marginTop: 10
-                }}
+                style={[
+                  globalStyles.editModal.button,
+                  globalStyles.editModal.cancelButton
+                ]}
                 onPress={onClose}>
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "bold"
-                  }}>
-                  Avbryt
-                </Text>
+                <Text style={globalStyles.editModal.cancelText}>Avbryt</Text>
               </TouchableOpacity>
             </ScrollView>
           </View>
