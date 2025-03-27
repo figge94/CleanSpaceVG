@@ -7,57 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-<<<<<<< HEAD
-  Platform,
-  Alert,
-  ActivityIndicator
-=======
   Platform
->>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
 } from "react-native";
 
 import { globalStyles } from "../styles/styles";
 import useEditClothingItem from "../hooks/useEditClothingItem";
 
-<<<<<<< HEAD
-export default function EditModal({ visible, onClose, item, theme }) {
-  const { updateItem, refetch } = useClothes();
-  const { theme: contextTheme } = useContext(SettingsContext);
-
-  const [name, setName] = useState(item.name);
-  const [category, setCategory] = useState(item.category?.main || "");
-  const [condition, setCondition] = useState(item.condition || "");
-  const [notes, setNotes] = useState(item.notes || "");
-  const [isSaving, setIsSaving] = useState(false); // Hantera sparande
-
-  const handleSave = async () => {
-    if (!name || !category) {
-      Alert.alert("Fel", "Namn och kategori är obligatoriska fält.");
-      return;
-    }
-
-    setIsSaving(true); // Starta sparandeprocess
-
-    const updatedItem = {
-      ...item,
-      name,
-      category: { main: category },
-      condition,
-      notes
-    };
-
-    try {
-      await updateItem(item._id, updatedItem);
-      await refetch();
-      Alert.alert("Uppdaterat!", "Plagget har sparats.");
-      onClose();
-    } catch (error) {
-      Alert.alert("Fel", "Det gick inte att spara ändringarna.");
-    } finally {
-      setIsSaving(false); // Slutför sparandeprocess
-    }
-  };
-=======
 export default function EditModal({ visible, onClose, item }) {
   const {
     name,
@@ -70,7 +25,6 @@ export default function EditModal({ visible, onClose, item }) {
     setNotes,
     handleSave
   } = useEditClothingItem(item, onClose);
->>>>>>> 36fed3122b73f1755aaa9e86d6e4ddca332914cc
 
   return (
     <Modal
