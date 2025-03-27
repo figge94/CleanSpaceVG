@@ -1,40 +1,27 @@
-import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// hooks/useFavorites.js
+import { useState, useEffect } from "react";
+import { AsyncStorage } from "react-native";
 
 export default function useFavorites() {
   const [favorites, setFavorites] = useState({});
 
+  // Hämtar favoriter från AsyncStorage när appen laddas
   useEffect(() => {
-    const loadFavorites = async () => {
-      try {
-        const saved = await AsyncStorage.getItem("favorites");
-        if (saved) setFavorites(JSON.parse(saved));
-      } catch (e) {
-        console.error("Kunde inte ladda favoriter", e);
+    async function loadFavorites() {
+      const savedFavorites = await AsyncStorage.getItem("favorites");
+      if (savedFavorites) {
+        setFavorites(JSON.parse(savedFavorites));
       }
-    };
+    }
     loadFavorites();
   }, []);
 
-  const toggleFavorite = async (itemId) => {
-    const updated = {
-      ...favorites,
-      [itemId]: !favorites[itemId]
-    };
-    setFavorites(updated);
-    try {
-      await AsyncStorage.setItem("favorites", JSON.stringify(updated));
-    } catch (e) {
-      console.error("Kunde inte spara favoriter", e);
-    }
+  // Uppdaterar favoritstatus
+  const toggleFavorite = (itemId) => {
+    const newFavorites = { ...favorites, [itemId]: !favorites[itemId] };
+    setFavorites(newFavorites);
+    AsyncStorage.setItem("favorites", JSON.stringify(newFavorites));
   };
 
-  const getFavoriteCount = () =>
-    Object.values(favorites).filter(Boolean).length;
-
-  return {
-    favorites,
-    toggleFavorite,
-    getFavoriteCount
-  };
+  return { favorites, toggleFavorite };
 }

@@ -33,11 +33,11 @@ export default function ClothesScreen({ navigation }) {
   const filteredData = data.filter((item) => {
     const matchKategori =
       selectedCategory === "Alla" || item.category?.main === selectedCategory;
-    const matchSökning = item.name
+    const matchSearch = item.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const isFavorite = favorites[item._id];
-    return matchKategori && matchSökning && (!showOnlyFavorites || isFavorite);
+    return matchKategori && matchSearch && (!showOnlyFavorites || isFavorite);
   });
 
   return (

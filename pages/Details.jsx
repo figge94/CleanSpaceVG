@@ -17,6 +17,7 @@ import {
 import { useClothes } from "../data/apiData";
 import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
+import useBackButtonHandler from "../hooks/useBackButtonHandler";
 
 export default function DetailsScreen({ route, navigation }) {
   const { theme } = useContext(SettingsContext);
@@ -28,18 +29,7 @@ export default function DetailsScreen({ route, navigation }) {
     navigation.goBack()
   );
 
-  useEffect(() => {
-    const backAction = () => {
-      navigation.goBack();
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-    return () => backHandler.remove();
-  }, []);
+  useBackButtonHandler(() => navigation.goBack());
 
   if (!item) {
     return (

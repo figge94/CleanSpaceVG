@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Text, View, Image, Animated } from "react-native";
+import { Text, View, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SettingsContext } from "../context/SettingsContext"; // Hanterar tema och mörkt/ljust läge
 import { buttonStyles, globalStyles, imageStyles } from "../styles/styles"; // Gemensamma bildstilar
@@ -8,15 +8,6 @@ import { Button } from "../components";
 // Skärm som visar användarens profilinformation samt inställningar
 export default function ProfileScreen({ navigation }) {
   const { darkMode, toggleDarkMode, theme } = useContext(SettingsContext);
-
-  // Förbereder en animering för temaväxling (används ej visuellt i denna version)
-  const transition = new Animated.Value(darkMode ? 1 : 0);
-
-  Animated.timing(transition, {
-    toValue: darkMode ? 0 : 1,
-    duration: 300,
-    useNativeDriver: false
-  }).start();
 
   return (
     // Hela sidan får bakgrundsfärg baserat på aktuellt tema

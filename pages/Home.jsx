@@ -1,6 +1,6 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SafeAreaView, ScrollView, View, Image, Text } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -8,21 +8,8 @@ import { SettingsContext } from "../context/SettingsContext";
 import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
 
-SplashScreen.preventAutoHideAsync();
-
 export default function HomeScreen({ navigation }) {
   const { theme } = useContext(SettingsContext);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    async function prepare() {
-      if (theme) {
-        await SplashScreen.hideAsync();
-        setIsReady(true);
-      }
-    }
-    prepare();
-  }, [theme]);
 
   const goToIntro = async () => {
     await AsyncStorage.removeItem("hasSeenIntro");
@@ -31,8 +18,6 @@ export default function HomeScreen({ navigation }) {
       routes: [{ name: "Intro" }]
     });
   };
-
-  if (!isReady) return null;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>

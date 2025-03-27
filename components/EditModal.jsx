@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import { SettingsContext } from "../context/SettingsContext";
 import { useClothes } from "../data/apiData";
@@ -22,12 +23,15 @@ export default function EditModal({ visible, onClose, item, theme }) {
   const [category, setCategory] = useState(item.category?.main || "");
   const [condition, setCondition] = useState(item.condition || "");
   const [notes, setNotes] = useState(item.notes || "");
+  const [isSaving, setIsSaving] = useState(false); // Hantera sparande
 
   const handleSave = async () => {
     if (!name || !category) {
       Alert.alert("Fel", "Namn och kategori är obligatoriska fält.");
       return;
     }
+
+    setIsSaving(true); // Starta sparandeprocess
 
     const updatedItem = {
       ...item,
@@ -37,10 +41,16 @@ export default function EditModal({ visible, onClose, item, theme }) {
       notes
     };
 
-    await updateItem(item._id, updatedItem);
-    await refetch();
-    Alert.alert("Uppdaterat!", "Plagget har sparats.");
-    onClose();
+    try {
+      await updateItem(item._id, updatedItem);
+      await refetch();
+      Alert.alert("Uppdaterat!", "Plagget har sparats.");
+      onClose();
+    } catch (error) {
+      Alert.alert("Fel", "Det gick inte att spara ändringarna.");
+    } finally {
+      setIsSaving(false); // Slutför sparandeprocess
+    }
   };
 
   return (
@@ -61,17 +71,18 @@ export default function EditModal({ visible, onClose, item, theme }) {
           }}>
           <View
             style={{
-              width: "90%",
-              maxHeight: "80%",
+              width: "100%",
+              maxHeight: "100%",
               backgroundColor: theme.cardBackground,
-              padding: 20,
+              padding: 30,
               borderRadius: 10
             }}>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
               <Text style={[globalStyles.title, { color: theme.text }]}>
-                Redigera plagg
+                Redigera detaljer för {item.name}
               </Text>
 
+              {/* Inputfält */}
               <TextInput
                 style={globalStyles.input}
                 placeholder="Namn på plagget"
@@ -105,6 +116,7 @@ export default function EditModal({ visible, onClose, item, theme }) {
                 multiline
               />
 
+              {/* Spara och Avbryt knappar */}
               <TouchableOpacity
                 style={{
                   backgroundColor: theme.buttonBackground,
@@ -113,15 +125,20 @@ export default function EditModal({ visible, onClose, item, theme }) {
                   alignItems: "center",
                   marginTop: 10
                 }}
-                onPress={handleSave}>
-                <Text
-                  style={{
-                    color: theme.buttonText,
-                    fontSize: 16,
-                    fontWeight: "bold"
-                  }}>
-                  Spara ändringar
-                </Text>
+                onPress={handleSave}
+                disabled={isSaving}>
+                {isSaving ? (
+                  <ActivityIndicator size="small" color={theme.buttonText} />
+                ) : (
+                  <Text
+                    style={{
+                      color: theme.buttonText,
+                      fontSize: 16,
+                      fontWeight: "bold"
+                    }}>
+                    Spara ändringar
+                  </Text>
+                )}
               </TouchableOpacity>
 
               <TouchableOpacity
