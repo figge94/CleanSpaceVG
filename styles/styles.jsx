@@ -5,7 +5,6 @@ import {
   titleText,
   subTitleText,
   sectionTitleText,
-  centeredText,
   baseButton,
   buttonText,
   cardBase,
@@ -30,7 +29,7 @@ export const globalStyles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    ...centeredText,
+    textAlign: "center",
     marginBottom: 25,
     paddingHorizontal: 20,
     opacity: 0.8,
@@ -75,11 +74,11 @@ export const globalStyles = StyleSheet.create({
   username: {
     fontSize: 24,
     fontWeight: "bold",
-    ...centeredText
+    textAlign: "center"
   },
   email: {
     fontSize: 16,
-    ...centeredText
+    textAlign: "center"
   },
   contentContainer: {
     alignItems: "center",
@@ -277,12 +276,12 @@ export const globalStyles = StyleSheet.create({
   username: {
     fontSize: 24,
     fontWeight: "bold",
-    ...centeredText
+    textAlign: "center"
   },
   email: {
     fontSize: 16,
     opacity: 0.7,
-    ...centeredText
+    textAlign: "center"
   },
   settingsContainer: {
     marginTop: 20,
@@ -449,7 +448,7 @@ export const statisticStyles = StyleSheet.create({
     fontWeight: "bold",
 
     marginBottom: 5,
-    ...centeredText
+    textAlign: "center"
   },
   statValue: {
     fontSize: 18,

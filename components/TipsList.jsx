@@ -9,7 +9,7 @@ import {
   Platform
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme för att hämta temat
+
 import { globalStyles } from "../styles/styles";
 
 // Aktivera animation på Android
@@ -21,8 +21,6 @@ if (
 }
 
 export default function TipsList({ tips, expandedTipId, setExpandedTipId }) {
-  const { theme } = useAppTheme(); // Hämta temat från useAppTheme
-
   const renderItem = ({ item }) => {
     const isExpanded = expandedTipId === item.id;
 

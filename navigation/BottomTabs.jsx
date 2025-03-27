@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import useAppTheme from "../hooks/useAppTheme";
+
 import getTabBarIcon from "./getTabBarIcon";
 import { getScreenOptions } from "./tabOptions";
 
@@ -12,12 +12,10 @@ import ProfileScreen from "../pages/ProfileScreen";
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
-  const { theme } = useAppTheme();
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        ...getScreenOptions(theme),
+        ...getScreenOptions(),
         tabBarIcon: ({ focused, color, size }) =>
           getTabBarIcon(route.name, focused, color, size)
       })}>

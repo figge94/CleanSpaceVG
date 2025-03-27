@@ -3,13 +3,10 @@ import { SafeAreaView, ScrollView, View, Image, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme
 import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
 
 export default function HomeScreen({ navigation }) {
-  const { theme } = useAppTheme(); // Använd useAppTheme för att hämta temat
-
   const goToIntro = async () => {
     await AsyncStorage.removeItem("hasSeenIntro");
     navigation.reset({

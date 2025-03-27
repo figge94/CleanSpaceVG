@@ -2,12 +2,11 @@ import React, { useRef, useEffect } from "react";
 import { Text, StyleSheet, Image, Animated } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Onboarding from "react-native-onboarding-swiper";
-import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme
+
 import { buttonStyles, globalStyles, imageStyles } from "../styles/styles";
 import { Button } from "../components";
 
 export default function IntroScreen({ navigation }) {
-  const { theme } = useAppTheme();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const handleFinishIntro = async () => {

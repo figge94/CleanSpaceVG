@@ -1,16 +1,11 @@
 import React from "react";
 import { Text, Image, View, Switch } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import useAppTheme from "../hooks/useAppTheme";
+
 import { buttonStyles, globalStyles, imageStyles } from "../styles/styles";
 import { Button } from "../components";
 
 export default function ProfileScreen({ navigation }) {
-  const { isDarkMode, toggleDarkMode, theme } = useAppTheme();
-
-  const background = isDarkMode ? "#121212" : "#ece3df";
-  const textColor = isDarkMode ? "#fff" : "#000";
-
   return (
     <View style={[globalStyles.container, { backgroundColor: background }]}>
       <Image

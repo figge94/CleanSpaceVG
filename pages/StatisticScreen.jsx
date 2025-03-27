@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, ActivityIndicator, FlatList } from "react-native";
-import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme
+
 import { globalStyles, statisticStyles, cardStyles } from "../styles/styles";
 import { useClothes } from "../data/apiData";
 import { errorText } from "../styles/utilities";
@@ -8,7 +8,6 @@ import useFavorites from "../hooks/useFavorites";
 import useClothingStats from "../hooks/useClothingStats";
 
 export default function StatisticsScreen() {
-  const { theme } = useAppTheme();
   const { data = [], isLoading, error } = useClothes();
   const { getFavoriteCount } = useFavorites();
 

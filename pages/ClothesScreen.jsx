@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import useAppTheme from "../hooks/useAppTheme";
 import { useClothes } from "../data/apiData";
 import { buttonStyles, globalStyles } from "../styles/styles";
 import { AddModal, Card } from "../components";
@@ -18,7 +17,6 @@ import useFilteredClothes from "../hooks/useFilteredClothes";
 import useFavorites from "../hooks/useFavorites";
 
 export default function ClothesScreen({ navigation }) {
-  const { theme } = useAppTheme(); // Hämta temat från useAppTheme
   const { data, isLoading, error, refetch, deleteItem } = useClothes();
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [modalVisible, setModalVisible] = useState(false);

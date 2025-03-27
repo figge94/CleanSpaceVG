@@ -9,12 +9,11 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import useAppTheme from "../hooks/useAppTheme";
+
 import { globalStyles } from "../styles/styles";
 import useEditClothingItem from "../hooks/useEditClothingItem";
 
 export default function EditModal({ visible, onClose, item }) {
-  const { theme } = useAppTheme(); // Använd useAppTheme för att hämta temat
   const {
     name,
     category,

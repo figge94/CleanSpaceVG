@@ -1,11 +1,9 @@
 import React from "react";
 import { TextInput } from "react-native";
-import useAppTheme from "../hooks/useAppTheme";
+
 import { globalStyles } from "../styles/styles";
 
 export default function SearchBar({ value, onChange }) {
-  const { theme } = useAppTheme(); // Hämta theme från useAppTheme
-
   return (
     <TextInput
       placeholder="Sök plagg..."

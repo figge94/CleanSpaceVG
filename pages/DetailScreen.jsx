@@ -7,10 +7,8 @@ import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
 import useBackHandler from "../hooks/useBackHandler";
 import useFormattedDates from "../hooks/useFormattedDates";
-import useAppTheme from "../hooks/useAppTheme";
 
 export default function DetailsScreen({ route, navigation }) {
-  const { theme } = useAppTheme(); // Use the custom hook for theme
   const { deleteItem } = useClothes();
   const item = route.params?.item;
   const [modalVisible, setModalVisible] = useState(false);

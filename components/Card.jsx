@@ -5,13 +5,11 @@ import { cardStyles } from "../styles/styles";
 import useFavorites from "../hooks/useFavorites";
 import useAnimatedFavorite from "../hooks/useAnimatedFavorite";
 import useFormattedDates from "../hooks/useFormattedDates";
-import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme för att få temat
 
 export default function Card({ item, onPress }) {
   const { isFavorite } = useFavorites();
   const { scaleAnim, handleFavoritePress } = useAnimatedFavorite(item._id);
   const { lastUsed } = useFormattedDates(item);
-  const { theme } = useAppTheme(); // Använd useAppTheme för att hämta aktuellt tema
 
   return (
     <TouchableOpacity
