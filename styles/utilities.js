@@ -61,8 +61,8 @@ export const baseButton = {
   paddingVertical: 14,
   paddingHorizontal: 20,
   borderRadius: 10,
-  width: "90%",
   marginTop: 15,
+  width: "100%",
   ...shadow
 };
 

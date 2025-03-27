@@ -11,14 +11,14 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons } from "@expo/vector-icons";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme"; // För att hämta temat
 import { globalStyles } from "../styles/styles";
 import { Button } from "../components";
 import useAddClothingItem from "../hooks/useAddClothingItem";
-import formatDate from "../utils/dateUtils";
+import { formatDate } from "../utils/dateUtils";
 
 export default function AddModal({ visible, onClose }) {
-  const { theme } = useSettings();
+  const { isDarkMode, theme } = useAppTheme(); // Tema från useAppTheme hook
 
   const {
     name,
@@ -52,7 +52,7 @@ export default function AddModal({ visible, onClose }) {
           <View
             style={[
               globalStyles.addModal.container,
-              { backgroundColor: theme.cardBackground }
+              { backgroundColor: theme.cardBackground } // Använd det aktuella kort-temat
             ]}>
             <ScrollView
               contentContainerStyle={{ paddingBottom: 20 }}
@@ -61,7 +61,7 @@ export default function AddModal({ visible, onClose }) {
                 Lägg till plagg
               </Text>
 
-              {/* Fält */}
+              {/* Namn fält */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -84,6 +84,7 @@ export default function AddModal({ visible, onClose }) {
                 onChangeText={setName}
               />
 
+              {/* Kategori fält */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -106,6 +107,7 @@ export default function AddModal({ visible, onClose }) {
                 onChangeText={setCategory}
               />
 
+              {/* Skick fält */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -139,6 +141,7 @@ export default function AddModal({ visible, onClose }) {
                 ))}
               </View>
 
+              {/* Datum väljare */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -157,7 +160,7 @@ export default function AddModal({ visible, onClose }) {
                   />
                 }
                 style={{
-                  backgroundColor: "#6D4F40",
+                  backgroundColor: theme.buttonBackground,
                   width: "100%",
                   borderRadius: 8,
                   paddingVertical: 12
@@ -173,6 +176,7 @@ export default function AddModal({ visible, onClose }) {
                 />
               )}
 
+              {/* Taggar fält */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -195,6 +199,7 @@ export default function AddModal({ visible, onClose }) {
                 onChangeText={setTags}
               />
 
+              {/* Anteckningar fält */}
               <Text
                 style={[
                   globalStyles.addModal.formSection,
@@ -219,6 +224,7 @@ export default function AddModal({ visible, onClose }) {
                 multiline
               />
 
+              {/* Button för att spara */}
               <View style={globalStyles.addModal.buttonGroup}>
                 <Button
                   title="Lägg till"

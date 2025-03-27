@@ -1,10 +1,10 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { buttonStyles } from "../styles/styles";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme"; // Använd useAppTheme för temahantering
 
 export default function Button({ title, onPress, icon, style, disabled }) {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme(); // Hämta aktuellt tema från useAppTheme
 
   return (
     <Pressable

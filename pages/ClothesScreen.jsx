@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme"; // Använd useAppTheme istället för useSettings
 import { useClothes } from "../data/apiData";
 import { buttonStyles, globalStyles } from "../styles/styles";
 import { AddModal, Card } from "../components";
@@ -18,7 +18,7 @@ import useFilteredClothes from "../hooks/useFilteredClothes";
 import useFavorites from "../hooks/useFavorites";
 
 export default function ClothesScreen({ navigation }) {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme(); // Hämta temat från useAppTheme
   const { data, isLoading, error, refetch, deleteItem } = useClothes();
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [modalVisible, setModalVisible] = useState(false);
@@ -100,7 +100,7 @@ export default function ClothesScreen({ navigation }) {
         />
       </View>
 
-      <SearchBar value={searchQuery} onChange={setSearchQuery} theme={theme} />
+      <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
       <View style={{ flex: 1, marginBottom: 20 }}>
         {isLoading ? (

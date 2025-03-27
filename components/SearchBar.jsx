@@ -1,10 +1,10 @@
 import React from "react";
 import { TextInput } from "react-native";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme";
 import { globalStyles } from "../styles/styles";
 
 export default function SearchBar({ value, onChange }) {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme(); // Hämta theme från useAppTheme
 
   return (
     <TextInput

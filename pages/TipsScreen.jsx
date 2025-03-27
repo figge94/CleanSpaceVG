@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Animated, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme
 import { buttonStyles, globalStyles, tipsStyles } from "../styles/styles";
 import { TipsList } from "../components";
 import useRandomTip from "../hooks/useRandomTip";
 import useTipFilter from "../hooks/useTipFilter";
 
 export default function TipsScreen() {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme();
   const [expandedTipId, setExpandedTipId] = useState(null);
   const { randomTip, fadeAnim, getRandomTip } = useRandomTip();
   const {

@@ -1,20 +1,17 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Animated } from "react-native"; // Importerar komponenter från React Native
-import { MaterialIcons, EvilIcons } from "@expo/vector-icons"; // Importerar ikoner
-import { cardStyles } from "../styles/styles"; // Importerar styling för kort (CardStyle)
+import { View, Text, TouchableOpacity, Animated } from "react-native";
+import { MaterialIcons, EvilIcons } from "@expo/vector-icons";
+import { cardStyles } from "../styles/styles";
 import useFavorites from "../hooks/useFavorites";
 import useAnimatedFavorite from "../hooks/useAnimatedFavorite";
 import useFormattedDates from "../hooks/useFormattedDates";
+import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme för att få temat
 
-// Card – visar ett kort med information om ett plagg
-// Den visar om ett plagg är markerat som favorit, visar grundläggande info och navigerar vidare vid tryck.
-export default function Card({ item, theme, onPress }) {
+export default function Card({ item, onPress }) {
   const { isFavorite } = useFavorites();
-
-  // När användaren trycker på hjärtat startar en skalanimation och favoritstatus ändras
   const { scaleAnim, handleFavoritePress } = useAnimatedFavorite(item._id);
-
   const { lastUsed } = useFormattedDates(item);
+  const { theme } = useAppTheme(); // Använd useAppTheme för att hämta aktuellt tema
 
   return (
     <TouchableOpacity

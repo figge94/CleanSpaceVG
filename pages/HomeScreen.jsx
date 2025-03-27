@@ -3,12 +3,12 @@ import { SafeAreaView, ScrollView, View, Image, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme"; // Importera useAppTheme
 import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
 import { Button } from "../components";
 
 export default function HomeScreen({ navigation }) {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme(); // Använd useAppTheme för att hämta temat
 
   const goToIntro = async () => {
     await AsyncStorage.removeItem("hasSeenIntro");
@@ -18,14 +18,12 @@ export default function HomeScreen({ navigation }) {
     });
   };
 
-  if (!isReady) return null;
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={imageStyles.headerContainer}>
           <Image
-            source={require("../assets/wardrobe.png")}
+            source={require("../assets/images/headerImage.png")}
             style={imageStyles.headerImage}
           />
         </View>

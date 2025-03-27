@@ -3,7 +3,7 @@
 
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Används för att spara lokalt på enheten
-import { lightTheme, darkTheme } from "../styles/themes"; // Importerar färgteman
+import { lightTheme, darkTheme } from "../styles/theme"; // Importerar färgteman
 
 // Skapar en context så att andra komponenter kan komma åt temat och funktionen för att byta
 export const SettingsContext = createContext();

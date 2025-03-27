@@ -317,7 +317,6 @@ export const buttonStyles = StyleSheet.create({
   },
   toggleButton: {
     ...baseButton,
-    paddingHorizontal: 20,
     alignSelf: "stretch"
   },
   toggleButtonText: {

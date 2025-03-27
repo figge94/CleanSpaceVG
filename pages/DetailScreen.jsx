@@ -7,10 +7,10 @@ import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
 import useBackHandler from "../hooks/useBackHandler";
 import useFormattedDates from "../hooks/useFormattedDates";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme";
 
 export default function DetailsScreen({ route, navigation }) {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme(); // Use the custom hook for theme
   const { deleteItem } = useClothes();
   const item = route.params?.item;
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,6 +22,7 @@ export default function DetailsScreen({ route, navigation }) {
 
   useBackHandler(() => navigation.goBack());
 
+  // Show error message if no item exists
   if (!item) {
     return (
       <View
@@ -42,7 +43,7 @@ export default function DetailsScreen({ route, navigation }) {
           </Text>
         </View>
 
-        {/* Taggar */}
+        {/* Tags display */}
         {item.tags && item.tags.length > 0 && (
           <View style={tagStyles.tagContainer}>
             {item.tags.map((tag, index) => (
@@ -60,7 +61,7 @@ export default function DetailsScreen({ route, navigation }) {
           </View>
         )}
 
-        {/* Info-kort */}
+        {/* Info card */}
         <View
           style={[
             globalStyles.detailsCard,
@@ -84,7 +85,7 @@ export default function DetailsScreen({ route, navigation }) {
           <Text style={{ color: theme.text }}>{lastUsed}</Text>
         </View>
 
-        {/* Noteringar */}
+        {/* Notes display */}
         {item.notes && (
           <View
             style={[
@@ -109,7 +110,7 @@ export default function DetailsScreen({ route, navigation }) {
           </View>
         )}
 
-        {/* Datum och knappar */}
+        {/* Date and buttons */}
         <View style={globalStyles.centeredContainer}>
           <Text style={[globalStyles.sectionTitle, { color: theme.text }]}>
             Tillagd:

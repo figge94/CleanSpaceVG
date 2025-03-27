@@ -1,7 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import useSettings from "../hooks/useSettings";
+import useAppTheme from "../hooks/useAppTheme";
 import getTabBarIcon from "./getTabBarIcon";
+import { getScreenOptions } from "./tabOptions";
 
 import HomeScreen from "../pages/HomeScreen";
 import ClothesScreen from "../pages/ClothesScreen";
@@ -11,22 +12,14 @@ import ProfileScreen from "../pages/ProfileScreen";
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
-  const { theme } = useSettings();
+  const { theme } = useAppTheme();
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false,
+        ...getScreenOptions(theme),
         tabBarIcon: ({ focused, color, size }) =>
-          getTabBarIcon(route.name, focused, color, size),
-        tabBarActiveTintColor: theme.buttonBackground,
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: {
-          backgroundColor: theme.cardBackground,
-          paddingBottom: 5,
-          height: 60,
-          position: "absolute"
-        }
+          getTabBarIcon(route.name, focused, color, size)
       })}>
       <Tab.Screen
         name="Home"

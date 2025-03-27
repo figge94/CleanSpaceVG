@@ -1,5 +1,5 @@
 {
-  "name": "myapp",
+  "name": "cleanspace-vg",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,8 @@
     "react-native-screens": "^4.4.0",
     "react-native-svg": "15.8.0",
     "react-native-tab-view": "^4.0.5",
-    "react-native-web": "^0.19.13"
+    "react-native-web": "^0.19.13",
+    "expo-system-ui": "~4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
