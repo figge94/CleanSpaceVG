@@ -31,12 +31,6 @@ export default function ProfileScreen({ navigation }) {
           onPress={() => navigation.navigate("Statistics")}
         />
       </View>
-
-      <View style={buttonStyles.buttonContainer}>
-        <Text style={[globalStyles.subTitle, { color: theme.textColor }]}>
-          Mörkt läge
-        </Text>
-      </View>
     </View>
   );
 }

@@ -17,8 +17,7 @@ export default function Button({ title, onPress, icon, style, disabled }) {
       ]}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         {icon && <View style={{ marginRight: 8 }}>{icon}</View>}
-        <Text
-          style={[buttonStyles.buttonText, { color: buttonStyles.buttonText }]}>
+        <Text style={[buttonStyles.buttonText, { color: theme.buttonText }]}>
           {title}
         </Text>
       </View>

@@ -3,7 +3,12 @@ import { SafeAreaView, ScrollView, View, Image, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { globalStyles, imageStyles, buttonStyles } from "../styles/styles";
+import {
+  globalStyles,
+  imageStyles,
+  buttonStyles,
+  theme
+} from "../styles/styles";
 import { Button } from "../components";
 import { buttonText } from "../styles/utilities";
 
@@ -44,7 +49,7 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons
                   name="wardrobe"
                   size={26}
-                  color={buttonText}
+                  color={theme.buttonText}
                 />
               }
             />
@@ -56,7 +61,7 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons
                   name="chart-box"
                   size={26}
-                  color={buttonText}
+                  color={theme.buttonText}
                 />
               }
             />
@@ -68,7 +73,7 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons
                   name="restart"
                   size={26}
-                  color={buttonText}
+                  color={theme.buttonText}
                 />
               }
             />

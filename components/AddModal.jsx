@@ -170,7 +170,10 @@ export default function AddModal({ visible, onClose }) {
                 <DateTimePicker
                   value={lastUsed || new Date()}
                   mode="date"
-                  display="default"
+                  display="spinner"
+                  design="material"
+                  fullscreen={true}
+                  negativeButton={{ label: "Cancel", textColor: "red" }}
                   onChange={onChangeDate}
                 />
               )}
