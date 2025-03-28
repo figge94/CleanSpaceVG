@@ -31,6 +31,11 @@ export default function ProfileScreen({ navigation }) {
           onPress={() => navigation.navigate("Statistics")}
         />
       </View>
+      <Button
+        title="Visa raderade plagg"
+        onPress={() => navigation.navigate("DeletedItems")}
+        theme={theme}
+      />
     </View>
   );
 }

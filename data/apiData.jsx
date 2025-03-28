@@ -31,6 +31,7 @@ export function useClothes() {
 
   // Skapar nytt plagg (POST)
   const createItem = async (newItem) => {
+    setData((prev) => [newItem, ...prev]);
     const res = await fetch("https://mitt-api.findersson.se/items", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

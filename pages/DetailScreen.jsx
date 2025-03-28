@@ -7,16 +7,22 @@ import { Button, EditModal } from "../components";
 import useDeleteConfirmation from "../hooks/useDeleteConfirmation";
 import useBackHandler from "../hooks/useBackHandler";
 import useFormattedDates from "../hooks/useFormattedDates";
+import { deleteAndArchiveItem } from "../utils/clothesUtils";
+import ConfirmModal from "../components/ConfirmModal";
 
 export default function DetailsScreen({ route, navigation }) {
-  const { deleteItem } = useClothes();
+  const { deleteItem, refetch } = useClothes();
   const item = route.params?.item;
   const [modalVisible, setModalVisible] = useState(false);
   const { createdAt, lastUsed } = useFormattedDates(item);
+  const [confirmVisible, setConfirmVisible] = useState(false);
 
-  const confirmDelete = useDeleteConfirmation(deleteItem, () =>
-    navigation.goBack()
-  );
+  const confirmDelete = useDeleteConfirmation(() => {
+    return deleteAndArchiveItem(item, deleteItem, () => {
+      refetch();
+      navigation.goBack();
+    });
+  });
 
   useBackHandler(() => navigation.goBack());
 
@@ -128,13 +134,7 @@ export default function DetailsScreen({ route, navigation }) {
 
           <Button
             title="Ta bort"
-            onPress={() =>
-              confirmDelete(item._id, {
-                title: "Radera plagg",
-                message: `Vill du verkligen ta bort "${item.name}"?`,
-                successMessage: `"${item.name}" har tagits bort.`
-              })
-            }
+            onPress={() => setConfirmVisible(true)}
             theme={{
               ...theme,
               buttonBackground: "#C62828",
@@ -142,17 +142,20 @@ export default function DetailsScreen({ route, navigation }) {
             }}
             icon={<MaterialIcons name="delete" size={20} color="#fff" />}
           />
-
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={[
-              buttonStyles.button,
-              { backgroundColor: theme.buttonBackground }
-            ]}>
-            <MaterialIcons name="arrow-back" size={24} color="white" />
-            <Text style={buttonStyles.backButton}>Gå tillbaka</Text>
-          </TouchableOpacity>
         </View>
+
+        <ConfirmModal
+          visible={confirmVisible}
+          message={`Vill du verkligen ta bort "${item.name}"?`}
+          onCancel={() => setConfirmVisible(false)}
+          onConfirm={() => {
+            setConfirmVisible(false);
+            deleteAndArchiveItem(item, deleteItem, () => {
+              refetch();
+              navigation.goBack();
+            });
+          }}
+        />
 
         <EditModal
           visible={modalVisible}

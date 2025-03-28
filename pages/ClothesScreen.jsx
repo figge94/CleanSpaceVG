@@ -17,7 +17,7 @@ import useFilteredClothes from "../hooks/useFilteredClothes";
 import useFavorites from "../hooks/useFavorites";
 
 export default function ClothesScreen({ navigation }) {
-  const { data, isLoading, error, refetch, deleteItem } = useClothes();
+  const { data, isLoading, error } = useClothes();
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");

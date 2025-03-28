@@ -7,7 +7,7 @@ export default function useAddClothingItem(onClose) {
   const { createItem, refetch } = useClothes();
 
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState({ main: "", sub: "" });
   const [condition, setCondition] = useState("");
   const [lastUsed, setLastUsed] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -34,10 +34,16 @@ export default function useAddClothingItem(onClose) {
       tags
     });
 
-    await createItem(newItem);
-    await refetch();
-    Alert.alert("Lyckades!", "Plagget har lagts till.");
-    onClose();
+    try {
+      console.log("Skickar till API:", newItem); // för felsökning
+      await createItem(newItem);
+      await refetch();
+      Alert.alert("Lyckades!", "Plagget har lagts till.");
+      onClose();
+    } catch (error) {
+      Alert.alert("Fel", "Plagget kunde inte sparas.\n" + error.message);
+      console.error("❌ Fel i handleSave:", error);
+    }
   };
 
   return {

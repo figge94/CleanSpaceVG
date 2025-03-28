@@ -26,6 +26,8 @@ export default function AddModal({ visible, onClose }) {
     setCategory,
     condition,
     setCondition,
+    subCategory, // ✅ Lägg till detta
+    setSubCategory,
     lastUsed,
     setLastUsed,
     showDatePicker,
@@ -83,28 +85,65 @@ export default function AddModal({ visible, onClose }) {
                 onChangeText={setName}
               />
 
-              {/* Kategori fält */}
-              <Text
-                style={[
-                  globalStyles.addModal.formSection,
-                  { color: theme.text }
-                ]}>
-                Kategori
-              </Text>
-              <TextInput
-                style={[
-                  globalStyles.input,
-                  {
-                    borderColor: theme.borderColor,
-                    color: theme.text,
-                    backgroundColor: theme.cardBackground
-                  }
-                ]}
-                placeholder="T.ex. ytterplagg"
-                placeholderTextColor={theme.text}
-                value={category}
-                onChangeText={setCategory}
-              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between"
+                }}>
+                {/* Kategori */}
+                <View style={{ flex: 1, marginRight: 5 }}>
+                  <Text
+                    style={[
+                      globalStyles.addModal.formSection,
+                      { color: theme.text }
+                    ]}>
+                    Kategori
+                  </Text>
+                  <TextInput
+                    style={[
+                      globalStyles.input,
+                      {
+                        borderColor: theme.borderColor,
+                        color: theme.text,
+                        backgroundColor: theme.cardBackground
+                      }
+                    ]}
+                    placeholder="Ytterplagg, överdelar"
+                    placeholderTextColor="#BFBFBF"
+                    value={category.main}
+                    onChangeText={(text) =>
+                      setCategory((prev) => ({ ...prev, main: text }))
+                    }
+                  />
+                </View>
+
+                {/* Underkategori */}
+                <View style={{ flex: 1, marginLeft: 5 }}>
+                  <Text
+                    style={[
+                      globalStyles.addModal.formSection,
+                      { color: theme.text }
+                    ]}>
+                    Underkategori
+                  </Text>
+                  <TextInput
+                    style={[
+                      globalStyles.input,
+                      {
+                        borderColor: theme.borderColor,
+                        color: theme.text,
+                        backgroundColor: theme.cardBackground
+                      }
+                    ]}
+                    placeholder="T.ex. jacka"
+                    placeholderTextColor="#BFBFBF"
+                    value={category.sub}
+                    onChangeText={(text) =>
+                      setCategory((prev) => ({ ...prev, sub: text }))
+                    }
+                  />
+                </View>
+              </View>
 
               {/* Skick fält */}
               <Text
@@ -123,9 +162,7 @@ export default function AddModal({ visible, onClose }) {
                       globalStyles.addModal.conditionButton,
                       {
                         backgroundColor:
-                          condition === value
-                            ? theme.buttonBackground
-                            : theme.cardBackground,
+                          condition === value ? "#B28C7C" : "#EEE6E2",
                         borderColor: theme.borderColor
                       }
                     ]}>
@@ -159,9 +196,8 @@ export default function AddModal({ visible, onClose }) {
                   />
                 }
                 style={{
-                  backgroundColor: theme.buttonBackground,
-                  width: "100%",
-                  borderRadius: 8,
+                  width: "60%",
+                  borderRadius: 25,
                   paddingVertical: 12
                 }}
               />

@@ -24,7 +24,6 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     paddingVertical: 50,
     paddingHorizontal: 20,
-    backgroundColor: "#c7c7ff",
     justifyContent: "center"
   },
   description: {
@@ -121,7 +120,8 @@ export const globalStyles = StyleSheet.create({
     backdrop: {
       flex: 1,
       backgroundColor: "rgba(0,0,0,0.5)",
-      justifyContent: "flex-end"
+      justifyContent: "center",
+      alignItems: "center"
     },
     formSection: {
       marginTop: 5,

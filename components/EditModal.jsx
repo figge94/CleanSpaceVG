@@ -9,6 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { MaterialIcons } from "@expo/vector-icons";
+import { formatDate } from "../utils/dateUtils";
 
 import { globalStyles } from "../styles/styles";
 import useEditClothingItem from "../hooks/useEditClothingItem";
@@ -19,17 +22,24 @@ export default function EditModal({ visible, onClose, item }) {
     name,
     category,
     condition,
+    lastUsed,
     notes,
+    tags,
     setName,
     setCategory,
     setCondition,
     setNotes,
+    setLastUsed,
+    showDatePicker,
+    setShowDatePicker,
+    onChangeDate,
+    setTags,
     handleSave
   } = useEditClothingItem(item, onClose);
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}>
@@ -43,11 +53,15 @@ export default function EditModal({ visible, onClose, item }) {
               { backgroundColor: theme.cardBackground }
             ]}>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-              <Text style={[globalStyles.title, { color: theme.text }]}>
-                Redigera detaljer för {item.name}
+              <Text
+                style={[
+                  globalStyles.title,
+                  { color: theme.text, marginBottom: 10 }
+                ]}>
+                Redigera: {item.name}
               </Text>
 
-              {/* Inputfält */}
+              {/* Namn */}
               <TextInput
                 style={[
                   globalStyles.input,
@@ -57,27 +71,51 @@ export default function EditModal({ visible, onClose, item }) {
                     backgroundColor: theme.cardBackground
                   }
                 ]}
-                placeholder="Namn på plagget"
+                placeholder="Namn"
                 placeholderTextColor={theme.text}
                 value={name}
                 onChangeText={setName}
               />
 
-              <TextInput
-                style={[
-                  globalStyles.input,
-                  {
-                    borderColor: theme.borderColor,
-                    color: theme.text,
-                    backgroundColor: theme.cardBackground
+              {/* Kategori + Underkategori */}
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                <TextInput
+                  style={[
+                    globalStyles.input,
+                    {
+                      flex: 1,
+                      borderColor: theme.borderColor,
+                      color: theme.text,
+                      backgroundColor: theme.cardBackground
+                    }
+                  ]}
+                  placeholder="Kategori"
+                  placeholderTextColor={theme.text}
+                  value={category.main}
+                  onChangeText={(text) =>
+                    setCategory((prev) => ({ ...prev, main: text }))
                   }
-                ]}
-                placeholder="Kategori"
-                placeholderTextColor={theme.text}
-                value={category}
-                onChangeText={setCategory}
-              />
+                />
+                <TextInput
+                  style={[
+                    globalStyles.input,
+                    {
+                      flex: 1,
+                      borderColor: theme.borderColor,
+                      color: theme.text,
+                      backgroundColor: theme.cardBackground
+                    }
+                  ]}
+                  placeholder="Underkategori"
+                  placeholderTextColor={theme.text}
+                  value={category.sub}
+                  onChangeText={(text) =>
+                    setCategory((prev) => ({ ...prev, sub: text }))
+                  }
+                />
+              </View>
 
+              {/* Skick */}
               <TextInput
                 style={[
                   globalStyles.input,
@@ -93,6 +131,7 @@ export default function EditModal({ visible, onClose, item }) {
                 onChangeText={setCondition}
               />
 
+              {/* Anteckningar */}
               <TextInput
                 style={[
                   globalStyles.input,
@@ -110,7 +149,70 @@ export default function EditModal({ visible, onClose, item }) {
                 multiline
               />
 
-              {/* Spara och Avbryt knappar */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Taggar
+              </Text>
+              <TextInput
+                style={[
+                  globalStyles.input,
+                  {
+                    borderColor: theme.borderColor,
+                    color: theme.text,
+                    backgroundColor: theme.cardBackground,
+                    marginBottom: 12
+                  }
+                ]}
+                placeholder="T.ex. sommar, vardag, fest"
+                placeholderTextColor={theme.text}
+                value={tags}
+                onChangeText={setTags}
+              />
+
+              {/* Datumfält */}
+              <Text
+                style={[
+                  globalStyles.addModal.formSection,
+                  { color: theme.text }
+                ]}>
+                Senast använd
+              </Text>
+              <TouchableOpacity
+                onPress={() => setShowDatePicker(true)}
+                style={{
+                  backgroundColor: theme.buttonBackground,
+                  paddingVertical: 12,
+                  paddingHorizontal: 20,
+                  borderRadius: 8,
+                  alignItems: "center",
+                  marginBottom: 10
+                }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <MaterialIcons
+                    name="calendar-today"
+                    size={20}
+                    color={theme.buttonText}
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text style={{ color: theme.buttonText, fontSize: 16 }}>
+                    {formatDate(lastUsed)}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              {showDatePicker && (
+                <DateTimePicker
+                  value={lastUsed || new Date()}
+                  mode="date"
+                  display="spinner"
+                  onChange={onChangeDate}
+                />
+              )}
+
+              {/* Knappar */}
               <TouchableOpacity
                 style={[
                   globalStyles.editModal.button,
